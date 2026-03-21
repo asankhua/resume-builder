@@ -7,6 +7,9 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
 A sophisticated, feature-rich resume builder application that allows users to create professional resumes with multiple layouts, real-time preview, and advanced tools.
+The Resume Builder is a comprehensive, professional tool for creating stunning resumes. With its modern architecture, extensive feature set, and focus on user experience, it provides everything needed to create impressive resumes that stand out.
+
+Built with ❤️ using vanilla HTML, CSS, and JavaScript - no frameworks, no dependencies, just pure web technology.
 
 ## ✨ Key Features
 
