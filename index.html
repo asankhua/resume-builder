@@ -175,6 +175,16 @@
         .layout-two-column .resume-body { display: grid; grid-template-columns: 48% 48%; gap: 4%; }
         .layout-two-column .resume-sidebar { border-right: 1.5px solid #f1f5f9; padding-right: 4%; background: transparent; }
         
+        /* LEFT SIDEBAR (sidebar left, main right) */
+        .layout-sidebar-left .resume-body { display: grid; grid-template-columns: 32% 64%; gap: 4%; }
+        .layout-sidebar-left .resume-sidebar { border-right: 1px solid #e2e8f0; padding-right: 5%; background-color: #fafbfc; }
+        .layout-sidebar-left .resume-main { padding-left: 2%; }
+        
+        /* RIGHT SIDEBAR (main left, sidebar right) */
+        .layout-sidebar-right .resume-body { display: grid; grid-template-columns: 64% 32%; gap: 4%; }
+        .layout-sidebar-right .resume-sidebar { border-left: 1px solid #e2e8f0; padding-left: 5%; background-color: #fafbfc; }
+        .layout-sidebar-right .resume-main { padding-right: 2%; }
+        
         /* MINIMALIST EXECUTIVE */
         .layout-minimalist .resume-header { text-align: center; margin-bottom: 3rem; width: 100%; }
         .layout-minimalist .resume-contact { 
@@ -308,6 +318,8 @@
                 <select id="sel-layout" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('layout', this.value)">
                     <option value="single">Single Column</option>
                     <option value="two-column">Two-Column Modern (50/50)</option>
+                    <option value="sidebar-left">Left Sidebar</option>
+                    <option value="sidebar-right">Right Sidebar</option>
                     <option value="minimalist">Minimalist Executive</option>
                 </select>
             </div>
@@ -809,6 +821,7 @@
             const p = state.personal; const s = state.settings; const container = document.getElementById('resume-preview-container');
             const avatarUrl = p.photo || getAvatar(p.name);
             let photoHTML = `<img src="${avatarUrl}" class="w-32 h-32 rounded-xl object-cover mb-6 border shadow-sm ${s.layout === 'two-column' || s.layout === 'minimalist' ? 'mx-auto' : ''}">`;
+            if (s.layout === 'sidebar-left' || s.layout === 'sidebar-right') photoHTML = `<img src="${avatarUrl}" class="w-24 h-24 rounded-xl object-cover mb-4 border shadow-sm">`;
             let contactArr = [];
             if(p.email) contactArr.push(p.email);
             if(p.phone) contactArr.push(p.phone);
@@ -832,6 +845,16 @@
                 let leftCol = ''; let rightCol = '';
                 state.sectionOrder.forEach(id => { if (id === 'summary' || id === 'experience' || id === 'education') leftCol += blocks[id] || ''; else rightCol += blocks[id] || ''; });
                 finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-two-column" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"><div class="resume-header">${headerContent}</div><div class="resume-body"><div class="resume-sidebar">${leftCol}</div><div class="resume-main">${rightCol}</div></div></div>`;
+            } else if (s.layout === 'sidebar-left') {
+                let sidebarCol = ''; let mainCol = '';
+                state.sectionOrder.forEach(id => { if (id === 'summary' || id === 'skills' || id === 'certifications') sidebarCol += blocks[id] || ''; else mainCol += blocks[id] || ''; });
+                const sidebarHeader = `${photoHTML}<h1 class="resume-name">${p.name || 'Your Name'}</h1>${p.title ? `<div class="resume-title">${p.title}</div>` : ''}<div class="resume-contact">${contactArr.map(item => `<span class="resume-contact-item">${item}</span>`).join('')}</div>`;
+                finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-sidebar-left" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"><div class="resume-body"><div class="resume-sidebar">${sidebarHeader}${sidebarCol}</div><div class="resume-main">${mainCol}</div></div></div>`;
+            } else if (s.layout === 'sidebar-right') {
+                let sidebarCol = ''; let mainCol = '';
+                state.sectionOrder.forEach(id => { if (id === 'summary' || id === 'skills' || id === 'certifications') sidebarCol += blocks[id] || ''; else mainCol += blocks[id] || ''; });
+                const sidebarHeader = `${photoHTML}<h1 class="resume-name">${p.name || 'Your Name'}</h1>${p.title ? `<div class="resume-title">${p.title}</div>` : ''}<div class="resume-contact">${contactArr.map(item => `<span class="resume-contact-item">${item}</span>`).join('')}</div>`;
+                finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-sidebar-right" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"><div class="resume-body"><div class="resume-main">${mainCol}</div><div class="resume-sidebar">${sidebarHeader}${sidebarCol}</div></div></div>`;
             } else if (s.layout === 'minimalist') {
                 let content = ''; state.sectionOrder.forEach(id => { content += blocks[id] || ''; });
                 finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-minimalist" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"> <div class="resume-header">${headerContent}</div><div class="resume-body">${content}</div></div>`;
