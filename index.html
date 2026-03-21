@@ -16,6 +16,69 @@
             background-color: #0b0e14; 
             color: #f1f5f9; 
             overflow: hidden; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #e0f2fe;
+            color: #0c4a6e;
+        }
+        
+        body.light-mode .bg-\[\#020617\] { background-color: #f0f9ff; }
+        body.light-mode .bg-\[\#1e293b\] { background-color: #e0f2fe; }
+        body.light-mode .bg-\[\#0b0d11\] { background-color: #f0f9ff; }
+        body.light-mode .bg-\[\#1a1f2e\] { background-color: #e0f2fe; }
+        body.light-mode .bg-slate-900 { background-color: #bae6fd; }
+        body.light-mode .bg-slate-800 { background-color: #7dd3fc; }
+        body.light-mode .bg-slate-700 { background-color: #38bdf8; }
+        body.light-mode .text-slate-500 { color: #0c4a6e; }
+        body.light-mode .text-slate-400 { color: #075985; }
+        body.light-mode .text-slate-300 { color: #0284c7; }
+        body.light-mode .text-slate-200 { color: #0369a1; }
+        body.light-mode .text-white { color: #0c4a6e; }
+        body.light-mode .border-slate-800 { border-color: #7dd3fc; }
+        body.light-mode .border-slate-700 { border-color: #38bdf8; }
+        body.light-mode .border-slate-600 { border-color: #0284c7; }
+        
+        /* Form inputs and other elements */
+        body.light-mode .form-input {
+            background-color: #f0f9ff;
+            color: #0c4a6e;
+            border-color: #7dd3fc;
+        }
+        
+        body.light-mode .form-label {
+            color: #075985;
+        }
+        
+        body.light-mode .bg-white\/10 {
+            background-color: rgba(240, 249, 255, 0.9);
+        }
+        
+        body.light-mode .bg-white\/5 {
+            background-color: rgba(240, 249, 255, 0.95);
+        }
+        
+        body.light-mode .text-white\/60 {
+            color: #0284c7;
+        }
+        
+        body.light-mode .text-white\/70 {
+            color: #0369a1;
+        }
+        
+        body.light-mode .hover\:text-white:hover {
+            color: #0c4a6e;
+        }
+        
+        /* Modal and overlay styles */
+        body.light-mode .bg-slate-950\/90 {
+            background-color: rgba(14, 165, 233, 0.9);
+        }
+        
+        body.light-mode .bg-gradient-to-br.from-\[\#11141b\].to-\[\#1e293b\] {
+            background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
         }
 
         /* Scrollbar styling */
@@ -214,6 +277,57 @@
         .drag-handle:hover { transform: scale(1.2); }
         .draggable-section.dragging { opacity: 0.5; transform: scale(0.98); }
         .item-hidden { opacity: 0.4; filter: grayscale(100%); }
+        
+        /* Drag and Drop Styles */
+        .draggable-section {
+            cursor: move;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .draggable-section.dragging {
+            opacity: 0.3;
+            transform: scale(0.92) rotate(2deg);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            border: 2px dashed #3b82f6;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 51, 234, 0.05));
+        }
+        
+        .draggable-section:not(.dragging):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+        
+        .drop-zone-above {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .drop-zone-above.opacity-100 {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            transform: scaleY(2.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .drag-handle {
+            transition: all 0.3s ease;
+        }
+        
+        .drag-handle:hover {
+            transform: scale(1.3) rotate(5deg);
+            color: #60a5fa;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+        }
 
         @media print {
             header, .settings-bar, aside, #toast-container, #custom-modal, footer { display: none !important; }
@@ -274,7 +388,7 @@
     </section>
 
     <!-- Advanced Features Toolbar -->
-    <div class="h-12 shrink-0 bg-[#0f172a] border-b border-slate-800 flex items-center justify-between px-6 z-10">
+    <div class="h-12 shrink-0 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between px-6 z-10">
         <div class="flex items-center gap-3">
             <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mr-2">Advanced Tools:</span>
             <button onclick="openCoverLetterBuilder()" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 text-[9px] font-bold transition-all border border-indigo-600/30 flex items-center gap-1.5">
@@ -307,11 +421,20 @@
             <button onclick="openComparisonTool()" class="px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-400 text-[9px] font-bold transition-all border border-red-600/30 flex items-center gap-1.5">
                 <i class="fa-solid fa-scale-balanced"></i> Compare Resumes
             </button>
+            <button onclick="openAchievementQuantifier()" class="px-3 py-1.5 rounded-lg bg-green-600/20 hover:bg-green-600/30 text-green-400 text-[9px] font-bold transition-all border border-green-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-chart-line"></i> Quantify
+            </button>
+            <button onclick="openSpellCheck()" class="px-3 py-1.5 rounded-lg bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-400 text-[9px] font-bold transition-all border border-yellow-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-spell-check"></i> Spell Check
+            </button>
+            <button onclick="openQualityCheck()" class="px-3 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 text-[9px] font-bold transition-all border border-purple-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-star"></i> Quality
+            </button>
         </div>
     </div>
 
     <!-- Toolbar: Settings -->
-    <div class="settings-bar h-10 shrink-0 bg-[#0b0d11] border-b border-slate-800 flex items-center justify-between px-6 z-10 text-[10px] font-bold text-slate-400">
+    <div class="settings-bar h-10 shrink-0 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between px-6 z-10 text-[10px] font-bold text-slate-400">
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-2">
                 <span class="uppercase tracking-widest text-slate-500">Layout</span>
@@ -321,27 +444,6 @@
                     <option value="sidebar-left">Left Sidebar</option>
                     <option value="sidebar-right">Right Sidebar</option>
                     <option value="minimalist">Minimalist Executive</option>
-                </select>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="uppercase tracking-widest text-slate-500">Theme</span>
-                <select id="sel-theme" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('theme', this.value)">
-                    <option value="blue">Ocean Blue</option>
-                    <option value="emerald">Emerald Forest</option>
-                    <option value="charcoal">Obsidian Night</option>
-                    <option value="navy">Navy Professional</option>
-                    <option value="burgundy">Burgundy Elegant</option>
-                    <option value="teal">Teal Modern</option>
-                    <option value="purple">Purple Creative</option>
-                    <option value="rose">Rose Bold</option>
-                    <option value="orange">Sunset Orange</option>
-                    <option value="amber">Warm Amber</option>
-                    <option value="slate">Cool Slate</option>
-                    <option value="indigo">Deep Indigo</option>
-                    <option value="cyan">Ocean Cyan</option>
-                    <option value="lime">Fresh Lime</option>
-                    <option value="pink">Vibrant Pink</option>
-                    <option value="sky">Sky Blue</option>
                 </select>
             </div>
             <div class="flex items-center gap-2">
@@ -379,15 +481,6 @@
         </div>
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
-                <button onclick="openAchievementQuantifier()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
-                    <i class="fa-solid fa-chart-line text-green-500"></i> Quantify
-                </button>
-                <button onclick="openSpellCheck()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
-                    <i class="fa-solid fa-spell-check text-yellow-500"></i> Spell Check
-                </button>
-                <button onclick="openQualityCheck()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
-                    <i class="fa-solid fa-star text-purple-500"></i> Quality
-                </button>
                 <div class="w-px h-4 bg-slate-700 mx-0.5"></div>
                 <div class="flex items-center gap-1.5" title="Line Spacing">
                     <i class="fa-solid fa-arrows-up-down text-[9px]"></i>
@@ -395,6 +488,12 @@
                 </div>
             </div>
             <div class="flex items-center gap-2 border-l border-slate-800 pl-6">
+                <!-- Music Toggle Button -->
+                <button id="music-toggle" class="hover:text-white transition-colors flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/50 hover:bg-slate-700" title="Play/Pause Music">
+                    <i class="fa-solid fa-music text-[9px]"></i>
+                    <span class="text-[9px]">Music</span>
+                </button>
+                
                 <button onclick="exportJSON()" class="hover:text-white transition-colors flex items-center gap-1">
                     <i class="fa-solid fa-cloud-arrow-down text-[9px]"></i> Backup
                 </button>
@@ -415,7 +514,7 @@
             <div id="sidebar-sections-container" class="p-6 flex flex-col">
                 
                 <!-- Section: Personal Info -->
-                <section id="sidebar-sec-personal" style="order: 0" class="sidebar-section">
+                <section id="sidebar-sec-personal" style="order: 0" class="sidebar-section mb-8">
                     <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
                         <i class="fa-solid fa-id-card text-blue-500"></i> Personal Information
                     </h2>
@@ -452,16 +551,22 @@
                 </section>
 
                 <!-- Dynamic Sections (In Sequence) -->
-                <section id="sidebar-sec-summary" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'summary')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'summary')" ondragend="handleSectionDragEnd(event)">
-                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                <section id="sidebar-sec-summary" class="draggable-section relative group sidebar-section mb-8" draggable="true" ondragstart="handleSectionDragStart(event, 'summary')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'summary')" ondragend="handleSectionDragEnd(event)">
+                    <!-- Drop Zone Above -->
+                    <div class="drop-zone-above opacity-0 h-2 bg-blue-500/30 rounded-full transition-opacity" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'summary-above')"></div>
+                    
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle" onmousedown="(e) => e.stopPropagation()"><i class="fa-solid fa-grip-vertical"></i></div>
                     <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
                         <i class="fa-solid fa-quote-left text-blue-500"></i> Professional Summary
                     </h2>
                     <textarea id="inp-summary" class="form-input h-24 resize-none" placeholder="High-impact career summary..." oninput="onInputPersonal('summary', this.value)"></textarea>
                 </section>
 
-                <section id="sidebar-sec-skills" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'skills')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'skills')" ondragend="handleSectionDragEnd(event)">
-                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                <section id="sidebar-sec-skills" class="draggable-section relative group sidebar-section mb-8" draggable="true" ondragstart="handleSectionDragStart(event, 'skills')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'skills')" ondragend="handleSectionDragEnd(event)">
+                    <!-- Drop Zone Above -->
+                    <div class="drop-zone-above opacity-0 h-2 bg-blue-500/30 rounded-full transition-opacity" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'skills-above')"></div>
+                    
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle" onmousedown="(e) => e.stopPropagation()"><i class="fa-solid fa-grip-vertical"></i></div>
                     <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
                         <i class="fa-solid fa-fire text-blue-500"></i> Core Skills
                     </h2>
@@ -470,8 +575,11 @@
                     <div id="sidebar-skills-pills" class="flex flex-wrap gap-2"></div>
                 </section>
 
-                <section id="sidebar-sec-experience" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'experience')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'experience')" ondragend="handleSectionDragEnd(event)">
-                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                <section id="sidebar-sec-experience" class="draggable-section relative group sidebar-section mb-8" draggable="true" ondragstart="handleSectionDragStart(event, 'experience')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'experience')" ondragend="handleSectionDragEnd(event)">
+                    <!-- Drop Zone Above -->
+                    <div class="drop-zone-above opacity-0 h-2 bg-blue-500/30 rounded-full transition-opacity" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'experience-above')"></div>
+                    
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle" onmousedown="(e) => e.stopPropagation()"><i class="fa-solid fa-grip-vertical"></i></div>
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-3">
                             <i class="fa-solid fa-briefcase text-blue-500"></i> Work Experience
@@ -481,8 +589,11 @@
                     <button onclick="addItem('experience')" class="mt-4 w-full py-2.5 border border-dashed border-slate-700 text-blue-400 text-[10px] font-bold rounded-lg flex items-center justify-center gap-2 transition-all hover:border-blue-500/50"><i class="fa-solid fa-plus-circle"></i> Add Experience</button>
                 </section>
 
-                <section id="sidebar-sec-certifications" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'certifications')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'certifications')" ondragend="handleSectionDragEnd(event)">
-                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                <section id="sidebar-sec-certifications" class="draggable-section relative group sidebar-section mb-8" draggable="true" ondragstart="handleSectionDragStart(event, 'certifications')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'certifications')" ondragend="handleSectionDragEnd(event)">
+                    <!-- Drop Zone Above -->
+                    <div class="drop-zone-above opacity-0 h-2 bg-blue-500/30 rounded-full transition-opacity" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'certifications-above')"></div>
+                    
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle" onmousedown="(e) => e.stopPropagation()"><i class="fa-solid fa-grip-vertical"></i></div>
                     <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
                         <i class="fa-solid fa-certificate text-blue-500"></i> Certifications
                     </h2>
@@ -490,8 +601,11 @@
                     <button onclick="addItem('certifications')" class="mt-4 w-full py-2.5 border border-dashed border-slate-700 text-blue-400 text-[10px] font-bold rounded-lg flex items-center justify-center gap-2 transition-all hover:border-blue-500/50"><i class="fa-solid fa-plus-circle"></i> Add Certificate</button>
                 </section>
 
-                <section id="sidebar-sec-education" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'education')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'education')" ondragend="handleSectionDragEnd(event)">
-                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                <section id="sidebar-sec-education" class="draggable-section relative group sidebar-section mb-8" draggable="true" ondragstart="handleSectionDragStart(event, 'education')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'education')" ondragend="handleSectionDragEnd(event)">
+                    <!-- Drop Zone Above -->
+                    <div class="drop-zone-above opacity-0 h-2 bg-blue-500/30 rounded-full transition-opacity" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'education-above')"></div>
+                    
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle" onmousedown="(e) => e.stopPropagation()"><i class="fa-solid fa-grip-vertical"></i></div>
                     <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
                         <i class="fa-solid fa-graduation-cap text-blue-500"></i> Education
                     </h2>
@@ -550,26 +664,49 @@
         function openModal({ title, msg, type, defaultValue }, callback) {
             const modal = document.getElementById('custom-modal');
             const content = document.getElementById('custom-modal-content');
+            
+            // Set content
             document.getElementById('modal-title').textContent = title;
             const msgEl = document.getElementById('modal-msg');
             msgEl.textContent = msg || '';
             msgEl.style.display = msg ? 'block' : 'none';
+            
+            // Handle input field
             const inputEl = document.getElementById('modal-input');
             inputEl.style.display = type === 'prompt' ? 'block' : 'none';
             inputEl.value = defaultValue || '';
+            
+            // Set callback
             modalCallback = callback;
+            
+            // Set up confirm button
             document.getElementById('modal-confirm-btn').onclick = () => {
                 closeModal();
                 if (modalCallback) modalCallback(type === 'prompt' ? inputEl.value : true);
             };
+            
+            // Show modal
+            modal.classList.remove('hidden');
             modal.style.display = 'flex';
-            requestAnimationFrame(() => content.classList.remove('scale-95', 'opacity-0'));
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+            });
         }
         function closeModal() {
             const modal = document.getElementById('custom-modal');
             const content = document.getElementById('custom-modal-content');
+            
+            // Animate out
             content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { modal.style.display = 'none'; modalCallback = null; }, 200);
+            
+            // Hide modal after animation
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+                modalCallback = null;
+            }, 200);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -649,19 +786,112 @@
         }
 
         function deleteCurrentResume() {
-            if (appData.activeProfileId === 'sample_engineer') { showToast('Cannot delete sample resume', 'error'); return; }
+            console.log('Delete resume button clicked');
+            
+            if (appData.activeProfileId === 'sample_engineer') { 
+                showToast('Cannot delete sample resume', 'error'); 
+                return; 
+            }
+            
             const profileIds = Object.keys(appData.profiles);
-            if (profileIds.length <= 1) { showToast('Cannot delete only profile', 'error'); return; }
-            openModal({ title: 'Delete resume?', msg: `Remove "${state.name}" permanently?`, type: 'confirm' }, (ok) => {
-                if (ok) {
-                    delete appData.profiles[appData.activeProfileId];
-                    const nextId = profileIds.find(id => id !== appData.activeProfileId);
-                    switchProfile(nextId);
-                    updateProfileDropdown();
-                    saveState();
-                    showToast('Resume deleted', 'success');
+            if (profileIds.length <= 1) { 
+                showToast('Cannot delete only profile', 'error'); 
+                return; 
+            }
+            
+            const resumeName = state.name || 'Current Resume';
+            
+            // Create delete confirmation modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-trash text-red-500"></i> Delete Resume
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                            <p class="text-red-400 text-sm font-semibold mb-2">⚠️ Warning</p>
+                            <p class="text-white/80 text-sm">This action cannot be undone. All data in "${resumeName}" will be permanently deleted.</p>
+                        </div>
+                        
+                        <div class="flex gap-3 pt-2">
+                            <button onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors">
+                                Cancel
+                            </button>
+                            <button onclick="confirmDeleteResume()" class="flex-1 px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-lg font-semibold transition-all">
+                                Delete Resume
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function confirmDeleteResume() {
+            console.log('Confirm delete resume called');
+            
+            try {
+                const profileId = appData.activeProfileId;
+                const profile = appData.profiles[profileId];
+                const profileIds = Object.keys(appData.profiles);
+                
+                // Find and close modal immediately
+                const modal = document.querySelector('.fixed');
+                if (modal) {
+                    console.log('Closing delete modal immediately');
+                    modal.remove();
+                } else {
+                    console.error('Delete modal not found for removal');
                 }
-            });
+                
+                // Delete the profile
+                delete appData.profiles[profileId];
+                
+                // Switch to next available profile
+                const remainingIds = profileIds.filter(id => id !== profileId);
+                if (remainingIds.length > 0) {
+                    const nextId = remainingIds[0];
+                    appData.activeProfileId = nextId;
+                    switchProfile(nextId);
+                } else {
+                    // No profiles left, create empty one
+                    const newId = generateId();
+                    const freshResume = JSON.parse(JSON.stringify(EMPTY_PROFILE));
+                    freshResume.id = newId;
+                    freshResume.name = 'New Resume';
+                    appData.profiles[newId] = freshResume;
+                    appData.activeProfileId = newId;
+                    state = freshResume;
+                }
+                
+                // Update UI
+                updateProfileDropdown();
+                saveState();
+                
+                // Show success message immediately
+                showToast(`"${profile.name}" deleted successfully!`, 'success');
+                
+                console.log('Resume deletion completed');
+                
+            } catch (error) {
+                console.error('Error deleting resume:', error);
+                
+                // Close modal on error
+                const modal = document.querySelector('.fixed');
+                if (modal) {
+                    modal.remove();
+                }
+                
+                showToast('Error deleting resume. Please try again.', 'error');
+            }
         }
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
@@ -794,14 +1024,91 @@
         function removeCustomSection(id) { state.customSections = state.customSections.filter(s => s.id !== id); state.sectionOrder = state.sectionOrder.filter(o => o !== id); renderCustomSections(); saveState(); }
 
         let draggedSectionId = null;
-        function handleSectionDragStart(e, secId) { e.stopPropagation(); draggedSectionId = secId; e.target.classList.add('dragging'); }
-        function handleSectionDragOver(e) { e.preventDefault(); e.stopPropagation(); }
-        function handleSectionDragLeave(e) { e.stopPropagation(); }
+        function handleSectionDragStart(e, secId) { 
+            e.stopPropagation(); 
+            draggedSectionId = secId; 
+            e.target.classList.add('dragging');
+            console.log('Drag started for section:', secId);
+        }
+        function handleSectionDragOver(e) { 
+            e.preventDefault(); 
+            e.stopPropagation();
+            
+            // Show drop zone when dragging over
+            const dropZone = e.target.closest('.drop-zone-above');
+            if (dropZone) {
+                dropZone.classList.remove('opacity-0');
+                dropZone.classList.add('opacity-100');
+            }
+        }
+        function handleSectionDragLeave(e) { 
+            e.stopPropagation();
+            
+            // Hide drop zone when leaving
+            const dropZone = e.target.closest('.drop-zone-above');
+            if (dropZone) {
+                dropZone.classList.remove('opacity-100');
+                dropZone.classList.add('opacity-0');
+            }
+        }
         function handleSectionDrop(e, targetSecId) {
             e.preventDefault(); e.stopPropagation();
-            if (!draggedSectionId || draggedSectionId === targetSecId) return;
-            const from = state.sectionOrder.indexOf(draggedSectionId); const to = state.sectionOrder.indexOf(targetSecId);
-            if(from > -1 && to > -1) { state.sectionOrder.splice(from, 1); state.sectionOrder.splice(to, 0, draggedSectionId); updateSidebarOrder(); saveState(); }
+            if (!draggedSectionId) return;
+            
+            // Handle drop zone logic
+            let targetSection = targetSecId;
+            let insertAbove = false;
+            
+            if (targetSecId.includes('-above')) {
+                targetSection = targetSecId.replace('-above', '');
+                insertAbove = true;
+            }
+            
+            if (draggedSectionId === targetSection) return;
+            
+            console.log('Drop detected - from:', draggedSectionId, 'to:', targetSection, 'insertAbove:', insertAbove);
+            
+            const from = state.sectionOrder.indexOf(draggedSectionId); 
+            const to = state.sectionOrder.indexOf(targetSection);
+            
+            console.log('Current section order:', state.sectionOrder);
+            console.log('Moving from index', from, 'to index', to, 'above:', insertAbove);
+            
+            if(from > -1 && to > -1) { 
+                // Remove dragged section from current position
+                state.sectionOrder.splice(from, 1); 
+                
+                // Calculate new position
+                let newPosition = to;
+                if (from < to && !insertAbove) {
+                    newPosition = to - 1; // Adjust position if dragging forward and not inserting above
+                } else if (insertAbove) {
+                    newPosition = to; // Insert above target
+                } else {
+                    newPosition = to + 1; // Insert below target
+                }
+                
+                // Insert at new position
+                state.sectionOrder.splice(newPosition, 0, draggedSectionId); 
+                
+                console.log('New section order:', state.sectionOrder);
+                
+                // Update sidebar order and preview
+                updateSidebarOrder(); 
+                saveState();
+                
+                // Force preview update for all layouts
+                setTimeout(() => {
+                    updatePreview();
+                    console.log('Section order updated, preview refreshed for all layouts');
+                }, 50);
+            }
+            
+            // Hide all drop zones
+            document.querySelectorAll('.drop-zone-above').forEach(zone => {
+                zone.classList.remove('opacity-100');
+                zone.classList.add('opacity-0');
+            });
         }
         function handleSectionDragEnd(e) { e.stopPropagation(); e.target.classList.remove('dragging'); draggedSectionId = null; }
 
@@ -886,8 +1193,16 @@
         }
 
         function updateSidebarOrder() {
-            state.sectionOrder.forEach((id, idx) => { const el = document.getElementById(`sidebar-sec-${id}`); if (el) el.style.order = idx + 1; });
+            // Update sidebar visual order
+            state.sectionOrder.forEach((id, idx) => { 
+                const el = document.getElementById(`sidebar-sec-${id}`); 
+                if (el) el.style.order = idx + 1; 
+            });
+            
+            // Update preview for current layout
             updatePreview();
+            
+            console.log('Sidebar order updated for sections:', state.sectionOrder);
         }
 
         function createNewProfile() {
@@ -945,22 +1260,25 @@
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
             const shadow = el.style.boxShadow; el.style.boxShadow = 'none';
-            html2pdf().set({ margin:0, filename:`${state.personal.name || 'Resume'}.pdf`, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true}, jsPDF:{unit:'mm',format:fmt,orientation:'portrait'} }).from(el).save().then(() => { el.style.boxShadow = shadow; showToast('PDF downloaded!', 'success'); });
+            const filename = state.filename || state.name || 'Resume';
+            html2pdf().set({ margin:0, filename:`${filename}.pdf`, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true}, jsPDF:{unit:'mm',format:fmt,orientation:'portrait'} }).from(el).save().then(() => { el.style.boxShadow = shadow; showToast('PDF downloaded!', 'success'); });
         }
         function downloadAsHTML() {
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
-            const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${state.personal.name || 'Resume'}</title></head><body>${el.outerHTML}</body></html>`;
+            const filename = state.filename || state.name || 'Resume';
+            const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${filename}</title></head><body>${el.outerHTML}</body></html>`;
             const blob = new Blob([html], {type: 'text/html'});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${state.personal.name || 'Resume'}.html`; a.click(); URL.revokeObjectURL(a.href);
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${filename}.html`; a.click(); URL.revokeObjectURL(a.href);
             showToast('HTML downloaded! Open in Word to save as DOCX.', 'success');
         }
         function downloadAsTXT() {
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
+            const filename = state.filename || state.name || 'Resume';
             const txt = el.innerText || el.textContent || '';
             const blob = new Blob([txt], {type: 'text/plain'});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${state.personal.name || 'Resume'}.txt`; a.click(); URL.revokeObjectURL(a.href);
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${filename}.txt`; a.click(); URL.revokeObjectURL(a.href);
             showToast('Text file downloaded!', 'success');
         }
 
@@ -1306,36 +1624,141 @@
             document.body.appendChild(modal);
         }
         
+        let isCreatingResume = false;
+        
         function createNewResume() {
             console.log('New Resume clicked');
-            if (confirm('Create a new resume? This will save your current resume and start fresh.')) {
-                // Save current state
-                saveState();
+            
+            // Prevent multiple submissions
+            if (isCreatingResume) {
+                console.log('Resume creation already in progress');
+                return;
+            }
+            
+            // Create modal for resume name input
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-file-plus text-green-500"></i> Create New Resume
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove(); isCreatingResume = false;" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="form-label">Resume Name</label>
+                            <input type="text" id="new-resume-name" class="form-input" placeholder="Enter resume name (e.g., 'Software Engineer Resume')" maxlength="50">
+                            <p class="text-white/60 text-xs mt-2">This name will be used for the filename when downloading</p>
+                        </div>
+                        
+                        <div class="flex gap-3 pt-2">
+                            <button onclick="this.closest('.fixed').remove(); isCreatingResume = false;" class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors">
+                                Cancel
+                            </button>
+                            <button id="create-resume-btn" onclick="confirmNewResume()" class="flex-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-lg font-semibold transition-all">
+                                Create Resume
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Focus on input field
+            setTimeout(() => {
+                document.getElementById('new-resume-name').focus();
+            }, 100);
+        }
+        
+        function confirmNewResume() {
+            console.log('confirmNewResume called');
+            
+            // Prevent multiple submissions
+            if (isCreatingResume) {
+                console.log('Resume creation already in progress');
+                return;
+            }
+            
+            isCreatingResume = true;
+            console.log('Starting resume creation process');
+            
+            try {
+                const resumeNameInput = document.getElementById('new-resume-name');
                 
-                // Reset to empty state (but keep existing profiles)
-                const currentProfiles = { ...appData.profiles };
+                if (!resumeNameInput) {
+                    console.error('Resume name input not found');
+                    isCreatingResume = false;
+                    return;
+                }
                 
-                // Generate new ID
+                const resumeName = resumeNameInput.value.trim() || `Resume ${Object.keys(appData.profiles).length + 1}`;
+                console.log('Resume name:', resumeName);
+                
+                // Find and close modal immediately
+                const modal = document.querySelector('.fixed');
+                if (modal) {
+                    console.log('Closing modal immediately');
+                    modal.remove();
+                } else {
+                    console.error('Modal not found for removal');
+                }
+                
+                // Create completely fresh empty resume
+                console.log('Creating fresh resume');
                 const newId = generateId();
-                state.personal.id = newId;
+                const freshResume = JSON.parse(JSON.stringify(EMPTY_PROFILE));
+                freshResume.id = newId;
+                freshResume.name = resumeName;
+                freshResume.filename = resumeName; // Store filename for download
                 
-                // Add to profiles (preserve existing ones)
-                const profileName = `Resume ${Object.keys(currentProfiles).length + 1}`;
-                appData.profiles[newId] = {
-                    ...state,
-                    name: profileName
-                };
+                // Add to profiles
+                console.log('Adding to profiles');
+                appData.profiles[newId] = freshResume;
                 appData.activeProfileId = newId;
                 
+                // Update state to the fresh resume
+                console.log('Updating state');
+                state = freshResume;
+                
                 // Save to localStorage
+                console.log('Saving to localStorage');
                 localStorage.setItem('resume_builder_app_data', JSON.stringify(appData));
                 
-                // Update UI
-                populateFormFromState();
-                updateProfileDropdown();
-                updatePreview();
+                // Show success message immediately
+                showToast(`"${resumeName}" created successfully!`, 'success');
                 
-                showToast('New resume created successfully!', 'success');
+                // Update UI asynchronously to prevent hanging
+                console.log('Updating UI asynchronously');
+                setTimeout(() => {
+                    try {
+                        populateFormFromState();
+                        updateProfileDropdown();
+                        updatePreview();
+                        console.log('UI update completed');
+                    } catch (error) {
+                        console.error('Error updating UI:', error);
+                        showToast('Resume created but UI update failed', 'warning');
+                    } finally {
+                        isCreatingResume = false;
+                    }
+                }, 100);
+                
+            } catch (error) {
+                console.error('Error creating resume:', error);
+                isCreatingResume = false;
+                
+                // Close modal on error
+                const modal = document.querySelector('.fixed');
+                if (modal) {
+                    modal.remove();
+                }
+                
+                showToast('Error creating resume. Please try again.', 'error');
             }
         }
         
@@ -2013,11 +2436,84 @@
         
         // Start auto-save when page loads
         startAutoSave();
+        
+        // 🎵 Music Toggle Functionality
+        let isMusicPlaying = false;
+        let musicToggleBtn;
+        let bgMusic;
+        
+        // Initialize music after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            musicToggleBtn = document.getElementById('music-toggle');
+            bgMusic = document.getElementById('bg-music');
+            
+            if (bgMusic) {
+                bgMusic.volume = 0.3; // Keep it soft and aesthetic
+                
+                musicToggleBtn.addEventListener('click', () => {
+                    console.log('Music button clicked, isPlaying:', isMusicPlaying);
+                    
+                    if (isMusicPlaying) {
+                        bgMusic.pause();
+                        musicToggleBtn.innerHTML = '<i class="fa-solid fa-music text-[9px]"></i><span class="text-[9px]">Music</span>';
+                        musicToggleBtn.classList.remove('bg-blue-600/30', 'text-blue-400');
+                        musicToggleBtn.classList.add('bg-slate-800/50');
+                        console.log('Music paused');
+                    } else {
+                        // Try to play music with user interaction
+                        const playPromise = bgMusic.play();
+                        
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                console.log('Music started successfully');
+                                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high text-[9px]"></i><span class="text-[9px]">Playing</span>';
+                                musicToggleBtn.classList.remove('bg-slate-800/50');
+                                musicToggleBtn.classList.add('bg-blue-600/30', 'text-blue-400');
+                                
+                                // Visual feedback when music starts
+                                musicToggleBtn.style.transform = 'scale(1.1)';
+                                setTimeout(() => {
+                                    musicToggleBtn.style.transform = 'scale(1)';
+                                }, 200);
+                            }).catch(error => {
+                                console.error('Audio play failed:', error);
+                                console.log('Trying alternative audio source...');
+                                
+                                // Try alternative approach - create a new audio element
+                                const fallbackAudio = new Audio('https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3');
+                                fallbackAudio.volume = 0.3;
+                                fallbackAudio.loop = true;
+                                
+                                fallbackAudio.play().then(() => {
+                                    console.log('Fallback audio started');
+                                    bgMusic = fallbackAudio;
+                                    musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high text-[9px]"></i><span class="text-[9px]">Playing</span>';
+                                    musicToggleBtn.classList.remove('bg-slate-800/50');
+                                    musicToggleBtn.classList.add('bg-blue-600/30', 'text-blue-400');
+                                }).catch(e => {
+                                    console.error('Fallback audio also failed:', e);
+                                    alert('Music playback failed. Please check your browser settings.');
+                                });
+                            });
+                        }
+                    }
+                    isMusicPlaying = !isMusicPlaying;
+                });
+            }
+        });
     </script>
     
     <!-- Footer -->
     <footer class="h-8 shrink-0 bg-[#1a1f2e] border-t border-slate-700 flex items-center justify-center text-[9px] text-white uppercase tracking-[0.2em] font-bold">
         © 2024 Ashish Kumar Sankhua. All rights reserved. <a href="LICENSE" download class="text-cyan-400 hover:text-cyan-300 transition-colors">MIT License</a>
     </footer>
+    
+    <!-- Background Music Element -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+        <!-- Fallback for browsers that don't support audio tags -->
+        Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
