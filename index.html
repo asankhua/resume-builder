@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder Pro Max | Software Engineer Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Font Library */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&family=PT+Serif:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0b0e14; 
+            color: #f1f5f9; 
+            overflow: hidden; 
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        /* Profile Delete Buttons */
+        #profile-delete-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        
+        #profile-delete-buttons button {
+            padding: 4px 8px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        
+        #profile-delete-buttons button:hover {
+            background: #b91c1c;
+        }
+
+        /* Dynamic Resume Print Variables */
+        :root {
+            --color-primary: #4f46e5;
+            --color-primary-light: rgba(79, 70, 229, 0.08);
+            --color-text: #374151;
+            --color-heading: #111827;
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Inter', sans-serif;
+            --base-font-size: 14px;
+            --base-line-height: 1.6;
+        }
+
+        /* Font */
+        .font-merriweather { --font-heading: 'Merriweather', serif; --font-body: 'Inter', sans-serif; }
+        .font-inter { --font-heading: 'Inter', sans-serif; --font-body: 'Inter', sans-serif; }
+        .font-playfair { --font-heading: 'Playfair Display', serif; --font-body: 'Lora', serif; }
+        .font-lora { --font-heading: 'Lora', serif; --font-body: 'Inter', sans-serif; }
+        .font-roboto { --font-heading: 'Roboto', sans-serif; --font-body: 'Roboto', sans-serif; }
+        .font-montserrat { --font-heading: 'Montserrat', sans-serif; --font-body: 'Inter', sans-serif; }
+        .font-open-sans { --font-heading: 'Open Sans', sans-serif; --font-body: 'Open Sans', sans-serif; }
+        .font-source-code { --font-heading: 'Source Code Pro', monospace; --font-body: 'Source Sans Pro', sans-serif; }
+        .font-rubik { --font-heading: 'Rubik', sans-serif; --font-body: 'Rubik', sans-serif; }
+        .font-nunito { --font-heading: 'Nunito', sans-serif; --font-body: 'Nunito', sans-serif; }
+        .font-crimson { --font-heading: 'Crimson Text', serif; --font-body: 'Lato', sans-serif; }
+        .font-work-sans { --font-heading: 'Work Sans', sans-serif; --font-body: 'Work Sans', sans-serif; }
+        .font-poppins { --font-heading: 'Poppins', sans-serif; --font-body: 'Poppins', sans-serif; }
+        .font-raleway { --font-heading: 'Raleway', sans-serif; --font-body: 'Raleway', sans-serif; }
+        .font-dm-sans { --font-heading: 'DM Sans', sans-serif; --font-body: 'DM Sans', sans-serif; }
+        .font-manrope { --font-heading: 'Manrope', sans-serif; --font-body: 'Manrope', sans-serif; }
+        .font-lexend { --font-heading: 'Lexend', sans-serif; --font-body: 'Lexend', sans-serif; }
+        .font-pt-serif { --font-heading: 'PT Serif', serif; --font-body: 'Lato', sans-serif; }
+        .font-libre-baskerville { --font-heading: 'Libre Baskerville', serif; --font-body: 'Lato', sans-serif; }
+
+        /* Theme Colors */
+        .theme-blue { --color-primary: #2563eb; --color-primary-light: rgba(37, 99, 235, 0.08); }
+        .theme-emerald { --color-primary: #059669; --color-primary-light: rgba(5, 150, 105, 0.08); }
+        .theme-charcoal { --color-primary: #1e293b; --color-primary-light: rgba(30, 41, 59, 0.08); }
+        .theme-navy { --color-primary: #1e3a5f; --color-primary-light: rgba(30, 58, 95, 0.08); }
+        .theme-burgundy { --color-primary: #7c143d; --color-primary-light: rgba(124, 20, 61, 0.08); }
+        .theme-teal { --color-primary: #0d9488; --color-primary-light: rgba(13, 148, 136, 0.08); }
+        .theme-purple { --color-primary: #7c3aed; --color-primary-light: rgba(124, 58, 237, 0.08); }
+        .theme-rose { --color-primary: #e11d48; --color-primary-light: rgba(225, 29, 72, 0.08); }
+        .theme-orange { --color-primary: #ea580c; --color-primary-light: rgba(234, 88, 12, 0.08); }
+        .theme-amber { --color-primary: #d97706; --color-primary-light: rgba(217, 119, 6, 0.08); }
+        .theme-slate { --color-primary: #475569; --color-primary-light: rgba(71, 85, 105, 0.08); }
+        .theme-indigo { --color-primary: #4f46e5; --color-primary-light: rgba(79, 70, 229, 0.08); }
+        .theme-cyan { --color-primary: #0891b2; --color-primary-light: rgba(8, 145, 178, 0.08); }
+        .theme-lime { --color-primary: #65a30d; --color-primary-light: rgba(101, 163, 13, 0.08); }
+        .theme-pink { --color-primary: #db2777; --color-primary-light: rgba(219, 39, 119, 0.08); }
+        .theme-sky { --color-primary: #0284c7; --color-primary-light: rgba(2, 132, 199, 0.08); }
+
+        .preview-container {
+            background-color: #1a1d23;
+            background-image: radial-gradient(#2d333d 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* A4 Page Canvas */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            color: var(--color-text);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+            padding: 18mm;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+            font-size: var(--base-font-size);
+            line-height: var(--base-line-height);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .resume-name { font-family: var(--font-heading); font-size: 2.75em; font-weight: 700; color: var(--color-heading); line-height: 1.05; letter-spacing: -0.025em; }
+        .resume-title { font-size: 1.1em; font-weight: 600; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.4em; }
+        .resume-contact-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85em; color: #64748b; margin-top: 0.5em; }
+        
+        /* Section Header Bar */
+        .resume-section-header {
+            background-color: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 6px 12px;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            display: flex;
+            align-items: center;
+        }
+
+        .resume-section-title { 
+            font-family: var(--font-heading); font-size: 1.05em; font-weight: 700; color: var(--color-heading); 
+            text-transform: uppercase; letter-spacing: 0.08em; margin: 0;
+        }
+        
+        .resume-item { margin-bottom: 1.25em; }
+        .resume-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.15em; }
+        .resume-item-title { font-weight: 700; font-size: 1.05em; color: var(--color-heading); }
+        .resume-item-subtitle { font-weight: 500; font-size: 0.95em; color: var(--color-primary); font-style: italic; }
+        .resume-item-date { font-size: 0.9em; color: #64748b; font-weight: 500; font-variant-numeric: tabular-nums; }
+        
+        .resume-text { font-size: 1em; color: var(--color-text); }
+        .resume-text ul { list-style-type: disc; padding-left: 1.4em; margin-top: 0.25em; }
+        .resume-text li { margin-bottom: 0.35em; }
+        .resume-text b, .resume-text strong { font-weight: 600; color: var(--color-heading); }
+
+        .skill-capsule {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.82em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            color: var(--color-heading);
+            margin-right: 6px;
+            margin-bottom: 6px;
+            background-color: #f8fafc;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* --- LAYOUT DISTINCTIONS --- */
+        .resume-body { position: relative; z-index: 1; }
+        
+        /* TWO COLUMN MODERN */
+        .layout-two-column .resume-header { text-align: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 2px solid #f1f5f9; }
+        .layout-two-column .resume-contact { justify-content: center; display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; }
+        .layout-two-column .resume-body { display: grid; grid-template-columns: 48% 48%; gap: 4%; }
+        .layout-two-column .resume-sidebar { border-right: 1.5px solid #f1f5f9; padding-right: 4%; background: transparent; }
+        
+        /* MINIMALIST EXECUTIVE */
+        .layout-minimalist .resume-header { text-align: center; margin-bottom: 3rem; width: 100%; }
+        .layout-minimalist .resume-contact { 
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0 1rem;
+            border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 10px 0; 
+            margin: 1.5rem auto 0 auto; width: fit-content; max-width: 100%;
+        }
+        .layout-minimalist .resume-contact-item { margin-top: 0; padding: 2px 0; }
+        .layout-minimalist .resume-contact-item i { display: none; }
+        .layout-minimalist .resume-section-header { 
+            background-color: transparent; border-left: none; border-bottom: 1px solid #1e293b; 
+            justify-content: center; padding: 0; margin-top: 3rem; margin-bottom: 1.5rem; 
+        }
+        .layout-minimalist .resume-section-title { font-size: 1.2em; letter-spacing: 0.2em; color: var(--color-heading); }
+        .layout-minimalist .resume-item { margin-bottom: 2rem; }
+        .layout-minimalist .resume-item-header { flex-direction: column; align-items: center; text-align: center; margin-bottom: 0.5rem; }
+        .layout-minimalist .resume-item-date { margin-top: 0.25rem; font-style: italic; color: var(--color-primary); }
+        .layout-minimalist .resume-text { font-size: 1em; color: var(--color-text); }
+        .layout-minimalist .resume-text ul { list-style-type: disc; padding-left: 1.4em; margin-top: 0.25em; }
+        .layout-minimalist .resume-text li { margin-bottom: 0.35em; }
+        .layout-minimalist .resume-text b, .layout-minimalist .resume-text strong { font-weight: 600; color: var(--color-heading); }
+        .form-input { width: 100%; background-color: #090b10; border: 1px solid #1e293b; border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.875rem; color: #f1f5f9; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+        .form-label { display: block; font-size: 0.7rem; font-weight: 700; color: #64748b; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .drag-handle { color: #3b82f6; cursor: grab; transition: transform 0.2s; }
+        .drag-handle:hover { transform: scale(1.2); }
+        .draggable-section.dragging { opacity: 0.5; transform: scale(0.98); }
+        .item-hidden { opacity: 0.4; filter: grayscale(100%); }
+
+        @media print {
+            header, .settings-bar, aside, #toast-container, #custom-modal, footer { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .preview-container { padding: 0 !important; background: none !important; }
+            .a4-page { box-shadow: none !important; margin: 0 !important; border: none !important; width: 100% !important; }
+            @page { size: auto; margin: 0; }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col">
+
+    <!-- Header Tier 1: Branding (Midnight Blue) -->
+    <header class="shrink-0 bg-[#020617] border-b border-slate-800 flex items-center px-6 py-4 z-20 shadow-xl">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-lg">
+                <i class="fa-solid fa-file-invoice text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-base tracking-tight text-white leading-none">Resume Builder</h1>
+                <p class="text-[9px] text-blue-400 font-bold uppercase tracking-widest mt-1">Professional Individual Edition</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Tier 2: Action Dashboard (Slate Blue) -->
+    <section class="shrink-0 bg-[#1e293b] border-b border-slate-700 flex items-center justify-between px-6 py-2.5 z-10 shadow-md">
+        <div class="flex items-center gap-4">
+            <!-- Profile Manager Container -->
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-[#0f172a] px-3 py-1.5 rounded-lg border border-slate-700 shadow-inner">
+                    <i class="fa-solid fa-folder-open text-slate-400 text-xs"></i>
+                    <select id="sel-profile" class="bg-transparent text-xs font-semibold text-slate-200 outline-none cursor-pointer min-w-[140px]" onchange="switchProfile(this.value)">
+                    </select>
+                </div>
+                
+                <!-- Delete Button -->
+                <button id="btn-delete-resume" onclick="deleteCurrentResume()" class="px-4 py-2 text-slate-300 hover:text-slate-100 text-[10px] font-bold transition-all flex items-center gap-2" title="Delete current resume">
+                    🗑️ Delete Resume
+                </button>
+                
+                <!-- New Resume Button -->
+                <button onclick="createNewResume()" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white text-[9px] font-bold transition-all border border-green-600/30 flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus text-green-300"></i> New Resume
+                </button>
+            </div>
+
+            <!-- Load Sample Utility -->
+            <button onclick="loadSampleData()" class="px-3 py-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[10px] font-bold transition-all border border-slate-600 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-yellow-500"></i> Load Sample Guide
+            </button>
+        </div>
+
+        <!-- Global Action: Download copy -->
+        <button onclick="openDownloadOptions()" class="px-5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-bold transition-all shadow-lg flex items-center gap-2 uppercase tracking-wider">
+            <i class="fa-solid fa-download"></i> Download copy
+        </button>
+    </section>
+
+    <!-- Advanced Features Toolbar -->
+    <div class="h-12 shrink-0 bg-[#0f172a] border-b border-slate-800 flex items-center justify-between px-6 z-10">
+        <div class="flex items-center gap-3">
+            <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mr-2">Advanced Tools:</span>
+            <button onclick="openCoverLetterBuilder()" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 text-[9px] font-bold transition-all border border-indigo-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-file-pen"></i> Cover Letter
+            </button>
+            <button onclick="openJobDescriptionMatcher()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-[9px] font-bold transition-all border border-emerald-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-bullseye"></i> JD Matcher
+            </button>
+            <button onclick="openKeywordDensityChecker()" class="px-3 py-1.5 rounded-lg bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 text-[9px] font-bold transition-all border border-amber-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-key"></i> Keyword Density
+            </button>
+            <button onclick="openReadabilityAnalyzer()" class="px-3 py-1.5 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-[9px] font-bold transition-all border border-cyan-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-book-open"></i> Readability Score
+            </button>
+            <button onclick="openATSCompatibilityChecker()" class="px-3 py-1.5 rounded-lg bg-violet-600/20 hover:bg-violet-600/30 text-violet-400 text-[9px] font-bold transition-all border border-violet-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-robot"></i> ATS Checker
+            </button>
+            <button onclick="openQRCodeGenerator()" class="px-3 py-1.5 rounded-lg bg-lime-600/20 hover:bg-lime-600/30 text-lime-400 text-[9px] font-bold transition-all border border-lime-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-qrcode"></i> QR Code
+            </button>
+            <button onclick="openEmailTemplates()" class="px-3 py-1.5 rounded-lg bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 text-[9px] font-bold transition-all border border-orange-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-envelope"></i> Email Templates
+            </button>
+            <button onclick="openSkillsGapAnalysis()" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-400 text-[9px] font-bold transition-all border border-sky-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation"></i> Skills Gap
+            </button>
+            <button onclick="calculateResumeStrength()" class="px-3 py-1.5 rounded-lg bg-green-600/20 hover:bg-green-600/30 text-green-400 text-[9px] font-bold transition-all border border-green-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-gauge-high"></i> Resume Strength
+            </button>
+            <button onclick="openComparisonTool()" class="px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-400 text-[9px] font-bold transition-all border border-red-600/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-scale-balanced"></i> Compare Resumes
+            </button>
+        </div>
+    </div>
+
+    <!-- Toolbar: Settings -->
+    <div class="settings-bar h-10 shrink-0 bg-[#0b0d11] border-b border-slate-800 flex items-center justify-between px-6 z-10 text-[10px] font-bold text-slate-400">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="uppercase tracking-widest text-slate-500">Layout</span>
+                <select id="sel-layout" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('layout', this.value)">
+                    <option value="single">Single Column</option>
+                    <option value="two-column">Two-Column Modern (50/50)</option>
+                    <option value="minimalist">Minimalist Executive</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="uppercase tracking-widest text-slate-500">Theme</span>
+                <select id="sel-theme" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('theme', this.value)">
+                    <option value="blue">Ocean Blue</option>
+                    <option value="emerald">Emerald Forest</option>
+                    <option value="charcoal">Obsidian Night</option>
+                    <option value="navy">Navy Professional</option>
+                    <option value="burgundy">Burgundy Elegant</option>
+                    <option value="teal">Teal Modern</option>
+                    <option value="purple">Purple Creative</option>
+                    <option value="rose">Rose Bold</option>
+                    <option value="orange">Sunset Orange</option>
+                    <option value="amber">Warm Amber</option>
+                    <option value="slate">Cool Slate</option>
+                    <option value="indigo">Deep Indigo</option>
+                    <option value="cyan">Ocean Cyan</option>
+                    <option value="lime">Fresh Lime</option>
+                    <option value="pink">Vibrant Pink</option>
+                    <option value="sky">Sky Blue</option>
+                </select>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="uppercase tracking-widest text-slate-500">Font</span>
+                <select id="sel-font" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('font', this.value)">
+                    <option value="merriweather">Merriweather</option>
+                    <option value="inter">Inter</option>
+                    <option value="playfair">Playfair Display</option>
+                    <option value="lora">Lora</option>
+                    <option value="roboto">Roboto</option>
+                    <option value="montserrat">Montserrat</option>
+                    <option value="open-sans">Open Sans</option>
+                    <option value="source-code">Source Code Pro</option>
+                    <option value="rubik">Rubik</option>
+                    <option value="nunito">Nunito</option>
+                    <option value="crimson">Crimson Text</option>
+                    <option value="work-sans">Work Sans</option>
+                    <option value="poppins">Poppins</option>
+                    <option value="raleway">Raleway</option>
+                    <option value="dm-sans">DM Sans</option>
+                    <option value="manrope">Manrope</option>
+                    <option value="lexend">Lexend</option>
+                    <option value="pt-serif">PT Serif</option>
+                    <option value="libre-baskerville">Libre Baskerville</option>
+                </select>
+                <div class="flex items-center gap-2">
+                    <span class="uppercase tracking-widest text-slate-500">Font size</span>
+                    <select id="sel-fontsize-preset" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-md px-2 py-0.5 outline-none" onchange="updateSettings('fontSize', this.value)">
+                        <option value="11">Small</option>
+                        <option value="14" selected>Medium</option>
+                        <option value="17">Large</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3">
+                <button onclick="openAchievementQuantifier()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-line text-green-500"></i> Quantify
+                </button>
+                <button onclick="openSpellCheck()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
+                    <i class="fa-solid fa-spell-check text-yellow-500"></i> Spell Check
+                </button>
+                <button onclick="openQualityCheck()" class="px-2.5 py-1 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-300 text-[9px] font-bold transition-all border border-slate-600 flex items-center gap-1.5">
+                    <i class="fa-solid fa-star text-purple-500"></i> Quality
+                </button>
+                <div class="w-px h-4 bg-slate-700 mx-0.5"></div>
+                <div class="flex items-center gap-1.5" title="Line Spacing">
+                    <i class="fa-solid fa-arrows-up-down text-[9px]"></i>
+                    <input type="range" id="rng-linespacing" min="1.2" max="2.2" step="0.1" class="w-16 accent-blue-500 h-0.5 bg-slate-800 rounded-full" oninput="updateSettings('lineSpacing', this.value)">
+                </div>
+            </div>
+            <div class="flex items-center gap-2 border-l border-slate-800 pl-6">
+                <button onclick="exportJSON()" class="hover:text-white transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-cloud-arrow-down text-[9px]"></i> Backup
+                </button>
+                <label class="cursor-pointer hover:text-white transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-cloud-arrow-up text-[9px]"></i> Restore
+                    <input type="file" accept=".json" class="hidden" id="inp-json" onchange="importJSON(event)">
+                </label>
+            </div>
+            <span id="save-status" class="text-emerald-500 opacity-0 transition-opacity"><i class="fa-solid fa-circle-check"></i></span>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex overflow-hidden">
+        
+        <!-- Editor Sidebar -->
+        <aside class="w-[500px] bg-[#090b10] border-r border-slate-800 flex flex-col shrink-0 z-10 overflow-y-auto">
+            <div id="sidebar-sections-container" class="p-6 flex flex-col">
+                
+                <!-- Section: Personal Info -->
+                <section id="sidebar-sec-personal" style="order: 0" class="sidebar-section">
+                    <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-id-card text-blue-500"></i> Personal Information
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-6">
+                            <div class="flex-1">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" id="inp-name" class="form-input" placeholder="e.g. Jonathan Ive" oninput="onInputPersonal('name', this.value)">
+                            </div>
+                            <div class="w-16 text-center">
+                                <label class="form-label">Portrait</label>
+                                <div class="relative w-12 h-12 mx-auto rounded-xl bg-slate-800/50 border-2 border-dashed border-slate-700 flex items-center justify-center overflow-hidden hover:border-blue-500 cursor-pointer group transition-all shadow-inner">
+                                    <img id="inp-photo-preview" src="" class="absolute inset-0 w-full h-full object-cover">
+                                    <div id="photo-overlay" class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i class="fa-solid fa-camera text-white text-base"></i>
+                                    </div>
+                                    <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="handlePhotoUpload(event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">Designation</label>
+                            <input type="text" id="inp-title" class="form-input" placeholder="e.g. Senior Software Engineer" oninput="onInputPersonal('title', this.value)">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="form-label">Email</label><input type="email" id="inp-email" class="form-input" placeholder="work@example.com" oninput="onInputPersonal('email', this.value)"></div>
+                            <div><label class="form-label">Contact No</label><input type="text" id="inp-phone" class="form-input" placeholder="+1 555 0000" oninput="onInputPersonal('phone', this.value)"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="form-label">City, Country</label><input type="text" id="inp-location" class="form-input" placeholder="London, UK" oninput="onInputPersonal('location', this.value)"></div>
+                            <div><label class="form-label">Professional URL</label><input type="text" id="inp-link" class="form-input" placeholder="linkedin.com/in/user" oninput="onInputPersonal('link', this.value)"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dynamic Sections (In Sequence) -->
+                <section id="sidebar-sec-summary" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'summary')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'summary')" ondragend="handleSectionDragEnd(event)">
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-quote-left text-blue-500"></i> Professional Summary
+                    </h2>
+                    <textarea id="inp-summary" class="form-input h-24 resize-none" placeholder="High-impact career summary..." oninput="onInputPersonal('summary', this.value)"></textarea>
+                </section>
+
+                <section id="sidebar-sec-skills" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'skills')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'skills')" ondragend="handleSectionDragEnd(event)">
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-fire text-blue-500"></i> Core Skills
+                    </h2>
+                    <label class="form-label">Separate items with commas</label>
+                    <input type="text" id="inp-skills" class="form-input mb-4" placeholder="e.g. React, Node.js" oninput="onInputPersonal('skills', this.value)">
+                    <div id="sidebar-skills-pills" class="flex flex-wrap gap-2"></div>
+                </section>
+
+                <section id="sidebar-sec-experience" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'experience')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'experience')" ondragend="handleSectionDragEnd(event)">
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-3">
+                            <i class="fa-solid fa-briefcase text-blue-500"></i> Work Experience
+                        </h2>
+                    </div>
+                    <div id="experience-container" class="space-y-4"></div>
+                    <button onclick="addItem('experience')" class="mt-4 w-full py-2.5 border border-dashed border-slate-700 text-blue-400 text-[10px] font-bold rounded-lg flex items-center justify-center gap-2 transition-all hover:border-blue-500/50"><i class="fa-solid fa-plus-circle"></i> Add Experience</button>
+                </section>
+
+                <section id="sidebar-sec-certifications" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'certifications')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'certifications')" ondragend="handleSectionDragEnd(event)">
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-certificate text-blue-500"></i> Certifications
+                    </h2>
+                    <div id="certifications-container" class="space-y-4"></div>
+                    <button onclick="addItem('certifications')" class="mt-4 w-full py-2.5 border border-dashed border-slate-700 text-blue-400 text-[10px] font-bold rounded-lg flex items-center justify-center gap-2 transition-all hover:border-blue-500/50"><i class="fa-solid fa-plus-circle"></i> Add Certificate</button>
+                </section>
+
+                <section id="sidebar-sec-education" class="draggable-section relative group sidebar-section" draggable="true" ondragstart="handleSectionDragStart(event, 'education')" ondragover="handleSectionDragOver(event)" ondragleave="handleSectionDragLeave(event)" ondrop="handleSectionDrop(event, 'education')" ondragend="handleSectionDragEnd(event)">
+                    <div class="absolute -left-2 top-4 text-slate-700 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <h2 class="text-xs font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> Education
+                    </h2>
+                    <div id="education-container" class="space-y-4"></div>
+                    <button onclick="addItem('education')" class="mt-4 w-full py-2.5 border border-dashed border-slate-700 text-blue-400 text-[10px] font-bold rounded-lg flex items-center justify-center gap-2 transition-all hover:border-blue-500/50"><i class="fa-solid fa-plus-circle"></i> Add Degree</button>
+                </section>
+
+                <div id="sidebar-add-custom" style="order: 999" class="pt-2 pb-24">
+                    <button onclick="addCustomSection()" class="w-full py-3.5 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-600/20 text-blue-500 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-folder-plus text-blue-500"></i> Create Custom Section
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Preview Area -->
+        <div class="flex-1 preview-container overflow-auto p-10 block">
+            <div id="resume-preview-container"></div>
+        </div>
+    </main>
+
+    <!-- Custom Modal -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] hidden items-center justify-center">
+        <div class="bg-[#11141b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all scale-95 opacity-0" id="custom-modal-content">
+            <h3 id="modal-title" class="text-lg font-bold text-white mb-3"></h3>
+            <p id="modal-msg" class="text-xs text-slate-400 mb-6 leading-relaxed"></p>
+            <input type="text" id="modal-input" class="form-input mb-6" placeholder="Enter value...">
+            <div class="flex gap-3">
+                <button onclick="closeModal()" class="flex-1 px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold uppercase tracking-widest transition-all">Cancel</button>
+                <button id="modal-confirm-btn" class="flex-1 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-bold uppercase tracking-widest transition-all">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-12 right-6 flex flex-col gap-3 z-50 pointer-events-none"></div>
+
+    <script>
+        const DEFAULT_SETTINGS = { theme: 'blue', font: 'merriweather', layout: 'single', fontSize: 14, lineSpacing: 1.6 };
+        const DEFAULT_SECTION_ORDER = ['summary', 'skills', 'experience', 'certifications', 'education'];
+        
+        const getAvatar = (name) => `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Alexander Sterling')}&background=0f172a&color=3b82f6&bold=true&size=256&rounded=true&font-size=0.33`;
+
+        const EMPTY_PROFILE = {
+            name: "New Resume",
+            personal: { name: '', title: '', email: '', phone: '', location: '', link: '', summary: '', skills: '', photo: '' },
+            experience: [], education: [], certifications: [], customSections: [],
+            sectionOrder: [...DEFAULT_SECTION_ORDER],
+            settings: { ...DEFAULT_SETTINGS }
+        };
+
+        let appData = { activeProfileId: 'default', profiles: {} };
+        let state = null;
+
+        let modalCallback = null;
+        function openModal({ title, msg, type, defaultValue }, callback) {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('custom-modal-content');
+            document.getElementById('modal-title').textContent = title;
+            const msgEl = document.getElementById('modal-msg');
+            msgEl.textContent = msg || '';
+            msgEl.style.display = msg ? 'block' : 'none';
+            const inputEl = document.getElementById('modal-input');
+            inputEl.style.display = type === 'prompt' ? 'block' : 'none';
+            inputEl.value = defaultValue || '';
+            modalCallback = callback;
+            document.getElementById('modal-confirm-btn').onclick = () => {
+                closeModal();
+                if (modalCallback) modalCallback(type === 'prompt' ? inputEl.value : true);
+            };
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => content.classList.remove('scale-95', 'opacity-0'));
+        }
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('custom-modal-content');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { modal.style.display = 'none'; modalCallback = null; }, 200);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('resumeBuilderProData');
+            if (saved) {
+                try { appData = JSON.parse(saved); } catch (e) { initSampleData(); }
+            } else { initSampleData(); }
+            if (!appData.profiles || Object.keys(appData.profiles).length === 0) initSampleData();
+            switchProfile(appData.activeProfileId || Object.keys(appData.profiles)[0]);
+            updateProfileDropdown();
+        });
+
+        function saveState() {
+            localStorage.setItem('resumeBuilderProData', JSON.stringify(appData));
+            const status = document.getElementById('save-status');
+            status.style.opacity = '1';
+            setTimeout(() => status.style.opacity = '0', 1000);
+        }
+
+        function switchProfile(id) {
+            if (!appData.profiles[id]) id = Object.keys(appData.profiles)[0];
+            appData.activeProfileId = id;
+            state = appData.profiles[id];
+            if (!state.sectionOrder || state.sectionOrder.length < 5) state.sectionOrder = [...DEFAULT_SECTION_ORDER];
+            if(!state.settings) state.settings = {...DEFAULT_SETTINGS};
+            populateFormFromState();
+            updateProfileDropdown();
+            saveState();
+        }
+
+        function updateProfileDropdown() {
+            const select = document.getElementById('sel-profile');
+            select.innerHTML = '';
+            for (const [id, profile] of Object.entries(appData.profiles)) {
+                const opt = document.createElement('option');
+                opt.value = id; opt.textContent = profile.name;
+                if (id === appData.activeProfileId) opt.selected = true;
+                select.appendChild(opt);
+            }
+            
+            const btnDel = document.getElementById('btn-delete-resume');
+            if (btnDel) btnDel.style.display = (appData.activeProfileId === 'sample_engineer' || Object.keys(appData.profiles).length <= 1) ? 'none' : 'flex';
+        }
+
+        function deleteProfile(profileId) {
+            const profile = appData.profiles[profileId];
+            if (!profile) return;
+            
+            if (confirm(`Delete "${profile.name}" permanently?`)) {
+                delete appData.profiles[profileId];
+                
+                // If deleting the active profile, switch to another one
+                if (appData.activeProfileId === profileId) {
+                    const remainingIds = Object.keys(appData.profiles).filter(id => id !== profileId);
+                    if (remainingIds.length > 0) {
+                        appData.activeProfileId = remainingIds[0];
+                    } else {
+                        // Reset to empty state if no profiles left
+                        appData.activeProfileId = null;
+                        state = JSON.parse(JSON.stringify(EMPTY_PROFILE));
+                    }
+                }
+                
+                localStorage.setItem('resume_builder_app_data', JSON.stringify(appData));
+                updateProfileDropdown();
+                updatePreview();
+                
+                if (appData.activeProfileId === profileId) {
+                    populateFormFromState();
+                } else {
+                    // Clear form if active profile was deleted
+                    document.getElementById('resume-form')?.reset();
+                }
+                
+                showToast(`"${profile.name}" deleted successfully!`, 'success');
+            }
+        }
+
+        function deleteCurrentResume() {
+            if (appData.activeProfileId === 'sample_engineer') { showToast('Cannot delete sample resume', 'error'); return; }
+            const profileIds = Object.keys(appData.profiles);
+            if (profileIds.length <= 1) { showToast('Cannot delete only profile', 'error'); return; }
+            openModal({ title: 'Delete resume?', msg: `Remove "${state.name}" permanently?`, type: 'confirm' }, (ok) => {
+                if (ok) {
+                    delete appData.profiles[appData.activeProfileId];
+                    const nextId = profileIds.find(id => id !== appData.activeProfileId);
+                    switchProfile(nextId);
+                    updateProfileDropdown();
+                    saveState();
+                    showToast('Resume deleted', 'success');
+                }
+            });
+        }
+
+        function generateId() { return Math.random().toString(36).substr(2, 9); }
+        function onInputPersonal(field, value) { 
+            state.personal[field] = value; 
+            if (field === 'skills') renderSidebarSkills();
+            saveState(); updatePreview(); 
+        }
+        function updateSettings(k, v) {
+            state.settings[k] = v;
+            saveState(); updatePreview();
+        }
+
+        function renderAllForms() {
+            renderListForms('experience', state.experience);
+            renderListForms('education', state.education);
+            renderListForms('certifications', state.certifications);
+            renderCustomSections();
+            renderSidebarSkills();
+            updateSidebarOrder();
+        }
+
+        function renderSidebarSkills() {
+            const container = document.getElementById('sidebar-skills-pills');
+            const input = document.getElementById('inp-skills');
+            const skillsArr = (state.personal.skills || '').split(',').map(s => s.trim()).filter(s => s);
+            container.innerHTML = '';
+            skillsArr.forEach((skill, index) => {
+                const el = document.createElement('div');
+                el.className = 'flex items-center gap-1.5 bg-slate-800 border border-slate-700 px-3 py-1 rounded-md text-[9px] font-bold text-slate-300 uppercase tracking-widest';
+                el.innerHTML = `<span>${skill}</span><button onclick="removeSkill(${index})" class="text-slate-500 hover:text-red-400 transition-colors"><i class="fa-solid fa-xmark"></i></button>`;
+                container.appendChild(el);
+            });
+            if (input && input.value !== state.personal.skills && document.activeElement !== input) input.value = state.personal.skills || '';
+        }
+
+        function removeSkill(index) {
+            let arr = state.personal.skills.split(',').map(s => s.trim()).filter(s => s);
+            arr.splice(index, 1);
+            state.personal.skills = arr.join(', ');
+            saveState(); renderSidebarSkills(); updatePreview();
+        }
+
+        function renderListForms(type, listData) {
+            const container = document.getElementById(`${type}-container`);
+            container.innerHTML = '';
+            listData.forEach((item, index) => {
+                const el = document.createElement('div');
+                const isHidden = item.visible === false;
+                el.className = `p-4 rounded-xl border border-slate-800 bg-[#0d1117] relative group transition-all ${isHidden ? 'item-hidden' : ''}`;
+                let fTitle = type === 'experience' ? 'Position' : (type === 'education' ? 'Degree' : 'Credential');
+                let fSub = type === 'experience' ? 'Employer' : (type === 'education' ? 'Institute' : 'Issuing Body');
+                el.innerHTML = `
+                    <div class="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="toggleVisibility('${type}', '${item.id}')" class="w-6 h-6 rounded bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700"><i class="fa-solid ${isHidden ? 'fa-eye-slash text-yellow-500' : 'fa-eye'}"></i></button>
+                        <button onclick="removeItem('${type}', '${item.id}')" class="w-6 h-6 rounded bg-red-950/20 flex items-center justify-center text-red-500 hover:text-red-400 border border-red-900/30"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="space-y-3">
+                        <div><label class="form-label">${fTitle}</label><input type="text" class="form-input" value="${item.role || item.degree || item.title || ''}" oninput="updateItemField('${type}', '${item.id}', '${type==='experience'?'role':(type==='education'?'degree':'title')}', this.value)"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><label class="form-label">${fSub}</label><input type="text" class="form-input" value="${item.company || item.school || item.subtitle || ''}" oninput="updateItemField('${type}', '${item.id}', '${type==='experience'?'company':(type==='education'?'school':'subtitle')}', this.value)"></div>
+                            <div><label class="form-label">Timeline</label><input type="text" class="form-input" value="${item.date || ''}" oninput="updateItemField('${type}', '${item.id}', 'date', this.value)"></div>
+                        </div>
+                        ${type === 'experience' ? `<div><label class="form-label">Highlights</label><div class="editor-content form-input min-h-[60px] overflow-y-auto" contenteditable="true" oninput="updateItemField('${type}', '${item.id}', 'desc', this.innerHTML)">${item.desc || ''}</div></div>` : ''}
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function renderCustomSections() {
+            const sidebar = document.getElementById('sidebar-sections-container');
+            document.querySelectorAll('.custom-section-block').forEach(el => el.remove());
+            state.customSections.forEach(sec => {
+                const secEl = document.createElement('section');
+                secEl.id = `sidebar-sec-${sec.id}`;
+                secEl.className = 'draggable-section sidebar-section relative group';
+                secEl.draggable = true;
+                secEl.ondragstart = (e) => handleSectionDragStart(e, sec.id);
+                secEl.ondragover = handleSectionDragOver;
+                secEl.ondragleave = handleSectionDragLeave;
+                secEl.ondrop = (e) => handleSectionDrop(e, sec.id);
+                secEl.ondragend = handleSectionDragEnd;
+                secEl.innerHTML = `
+                    <div class="absolute -left-2 top-6 text-slate-800 opacity-0 group-hover:opacity-100 cursor-grab p-1 drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xs font-bold text-blue-400 uppercase tracking-widest">${sec.title}</h2>
+                        <button onclick="removeCustomSection('${sec.id}')" class="text-red-500/50 hover:text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                    <div id="container-${sec.id}" class="space-y-6"></div>
+                    <button onclick="addCustomItem('${sec.id}')" class="mt-6 w-full py-2 text-blue-400 text-[10px] font-bold uppercase tracking-widest hover:text-blue-300"><i class="fa-solid fa-plus-circle"></i> Add Entry</button>
+                `;
+                sidebar.insertBefore(secEl, document.getElementById('sidebar-add-custom'));
+                const itemsContainer = document.getElementById(`container-${sec.id}`);
+                sec.items.forEach((item, idx) => {
+                    const el = document.createElement('div');
+                    const isHidden = item.visible === false;
+                    el.className = `p-4 rounded-xl border border-slate-800 bg-[#0d1117] relative group transition-all ${isHidden ? 'item-hidden' : ''}`;
+                    el.innerHTML = `
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="toggleVisibility('custom', '${item.id}', '${sec.id}')" class="p-1"><i class="fa-solid ${isHidden ? 'fa-eye-slash text-yellow-500' : 'fa-eye'}"></i></button>
+                            <button onclick="removeCustomItem('${sec.id}', '${item.id}')" class="p-1 text-red-500/50 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="space-y-3">
+                            <div><label class="form-label">Name</label><input type="text" class="form-input" value="${item.title || ''}" oninput="updateCustomField('${sec.id}', '${item.id}', 'title', this.value)"></div>
+                            <div class="grid grid-cols-2 gap-3">
+                               <div><label class="form-label">Sub-Header</label><input type="text" class="form-input" value="${item.subtitle || ''}" oninput="updateCustomField('${sec.id}', '${item.id}', 'subtitle', this.value)"></div>
+                               <div><label class="form-label">Date</label><input type="text" class="form-input" value="${item.date || ''}" oninput="updateCustomField('${sec.id}', '${item.id}', 'date', this.value)"></div>
+                            </div>
+                            <div><label class="form-label">Details</label><div class="editor-content form-input h-20 overflow-y-auto" contenteditable="true" oninput="updateCustomField('${sec.id}', '${item.id}', 'desc', this.innerHTML)">${item.desc || ''}</div></div>
+                        </div>
+                    `;
+                    itemsContainer.appendChild(el);
+                });
+            });
+            updateSidebarOrder();
+        }
+
+        function addItem(type) { state[type].push({ id: generateId(), visible: true }); renderAllForms(); saveState(); updatePreview(); }
+        function removeItem(type, id) { state[type] = state[type].filter(i => i.id !== id); renderAllForms(); saveState(); updatePreview(); }
+        function updateItemField(type, id, field, value) { let item = state[type].find(i => i.id === id); if(item) item[field] = value; saveState(); updatePreview(); }
+        function toggleVisibility(type, itemId, customSecId = null) {
+            let item = customSecId ? state.customSections.find(s => s.id === customSecId).items.find(i => i.id === itemId) : state[type].find(i => i.id === itemId);
+            if(item) { item.visible = (item.visible === false); renderAllForms(); saveState(); updatePreview(); }
+        }
+        function addCustomSection() { openModal({ title: "Custom Section", msg: "Enter Section Name", type: "prompt" }, (title) => { if (title && title.trim()) { const id = generateId(); state.customSections.push({ id, title: title.trim(), items: [] }); state.sectionOrder.push(id); renderCustomSections(); saveState(); }}); }
+        function addCustomItem(secId) { state.customSections.find(s => s.id === secId).items.push({ id: generateId(), visible: true }); renderCustomSections(); saveState(); updatePreview(); }
+        function removeCustomItem(secId, itemId) { let s = state.customSections.find(s => s.id === secId); s.items = s.items.filter(i => i.id !== itemId); renderCustomSections(); saveState(); updatePreview(); }
+        function updateCustomField(secId, itemId, field, value) { let i = state.customSections.find(s => s.id === secId).items.find(it => it.id === itemId); if(i) i[field] = value; saveState(); updatePreview(); }
+        function removeCustomSection(id) { state.customSections = state.customSections.filter(s => s.id !== id); state.sectionOrder = state.sectionOrder.filter(o => o !== id); renderCustomSections(); saveState(); }
+
+        let draggedSectionId = null;
+        function handleSectionDragStart(e, secId) { e.stopPropagation(); draggedSectionId = secId; e.target.classList.add('dragging'); }
+        function handleSectionDragOver(e) { e.preventDefault(); e.stopPropagation(); }
+        function handleSectionDragLeave(e) { e.stopPropagation(); }
+        function handleSectionDrop(e, targetSecId) {
+            e.preventDefault(); e.stopPropagation();
+            if (!draggedSectionId || draggedSectionId === targetSecId) return;
+            const from = state.sectionOrder.indexOf(draggedSectionId); const to = state.sectionOrder.indexOf(targetSecId);
+            if(from > -1 && to > -1) { state.sectionOrder.splice(from, 1); state.sectionOrder.splice(to, 0, draggedSectionId); updateSidebarOrder(); saveState(); }
+        }
+        function handleSectionDragEnd(e) { e.stopPropagation(); e.target.classList.remove('dragging'); draggedSectionId = null; }
+
+        function handlePhotoUpload(e) {
+            const file = e.target.files[0]; if (!file) return;
+            const r = new FileReader(); r.onload = (ev) => { state.personal.photo = ev.target.result; saveState(); populateFormFromState(); }; r.readAsDataURL(file);
+        }
+
+        function genPreviewBlock(item, titleField, subField) {
+            if (item.visible === false) return '';
+            const t = item[titleField] || ''; const s = item[subField] || '';
+            if (!t && !s) return '';
+            return `<div class="resume-item"><div class="resume-item-header"><div><span class="resume-item-title">${t}</span>${s ? `<span class="resume-item-subtitle">&nbsp; &bull; &nbsp;${s}</span>` : ''}</div><span class="resume-item-date">${item.date || ''}</span></div>${item.desc ? `<div class="resume-text mt-1">${item.desc}</div>` : ''}</div>`;
+        }
+
+        function updatePreview() {
+            const p = state.personal; const s = state.settings; const container = document.getElementById('resume-preview-container');
+            const avatarUrl = p.photo || getAvatar(p.name);
+            let photoHTML = `<img src="${avatarUrl}" class="w-32 h-32 rounded-xl object-cover mb-6 border shadow-sm ${s.layout === 'two-column' || s.layout === 'minimalist' ? 'mx-auto' : ''}">`;
+            let contactArr = [];
+            if(p.email) contactArr.push(p.email);
+            if(p.phone) contactArr.push(p.phone);
+            if(p.location) contactArr.push(p.location);
+            if(p.link) contactArr.push(p.link);
+            const blocks = {};
+            const sectionHeader = (title) => `<div class="resume-section-header"><h2 class="resume-section-title">${title}</h2></div>`;
+            blocks['summary'] = p.summary ? `<div class="resume-section-block">${sectionHeader('Professional Summary')}<p class="resume-text">${p.summary}</p></div>` : '';
+            blocks['experience'] = state.experience.some(e=>e.visible!==false) ? `<div class="resume-section-block">${sectionHeader('Work Experience')}<div>${state.experience.map(e=>genPreviewBlock(e, 'role', 'company')).join('')}</div></div>` : '';
+            blocks['education'] = state.education.some(e=>e.visible!==false) ? `<div class="resume-section-block">${sectionHeader('Education')}<div>${state.education.map(e=>genPreviewBlock(e, 'degree', 'school')).join('')}</div></div>` : '';
+            blocks['certifications'] = state.certifications.some(e=>e.visible!==false) ? `<div class="resume-section-block">${sectionHeader('Certifications')}<div>${state.certifications.map(c=>genPreviewBlock(c, 'title', 'subtitle')).join('')}</div></div>` : '';
+            let skillArr = p.skills ? p.skills.split(',').map(str=>str.trim()).filter(x=>x) : [];
+            blocks['skills'] = skillArr.length ? `<div class="resume-section-block">${sectionHeader('Core Skills')}<div class="flex flex-wrap ${s.layout === 'minimalist' ? 'justify-center' : ''}">${skillArr.map(sk => `<span class="skill-capsule">${sk}</span>`).join('')}</div></div>` : '';
+            state.customSections.forEach(sec => {
+                let items = sec.items.map(i => genPreviewBlock(i, 'title', 'subtitle')).join('');
+                blocks[sec.id] = items ? `<div class="resume-section-block">${sectionHeader(sec.title)}<div>${items}</div></div>` : '';
+            });
+            const headerContent = `${photoHTML}<h1 class="resume-name">${p.name || 'Your Name'}</h1>${p.title ? `<div class="resume-title">${p.title}</div>` : ''}<div class="resume-contact">${contactArr.map((item, idx) => `<span class="resume-contact-item">${item}</span>`).join('')}</div>`;
+            let finalHTML = '';
+            if (s.layout === 'two-column') {
+                let leftCol = ''; let rightCol = '';
+                state.sectionOrder.forEach(id => { if (id === 'summary' || id === 'experience' || id === 'education') leftCol += blocks[id] || ''; else rightCol += blocks[id] || ''; });
+                finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-two-column" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"><div class="resume-header">${headerContent}</div><div class="resume-body"><div class="resume-sidebar">${leftCol}</div><div class="resume-main">${rightCol}</div></div></div>`;
+            } else if (s.layout === 'minimalist') {
+                let content = ''; state.sectionOrder.forEach(id => { content += blocks[id] || ''; });
+                finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-minimalist" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"> <div class="resume-header">${headerContent}</div><div class="resume-body">${content}</div></div>`;
+            } else {
+                let content = ''; state.sectionOrder.forEach(id => { content += blocks[id] || ''; });
+                finalHTML = `<div class="a4-page theme-${s.theme} font-${s.font} layout-${s.layout}" id="resume-preview" style="--base-font-size:${s.fontSize}px; --base-line-height:${s.lineSpacing}"><div class="flex items-center gap-8 mb-10 border-b-2 border-slate-900 pb-8">${photoHTML?photoHTML.replace('mb-6','mb-0'):''}<div class="flex-1"><h1 class="resume-name">${p.name||'Your Name'}</h1>${p.title?`<div class="resume-title">${p.title}</div>`:''}<div class="resume-contact" style="display:flex; flex-wrap:wrap; gap:1.5rem">${contactArr.map(item => `<span class="resume-contact-item">${item}</span>`).join('')}</div></div></div>${content}</div>`;
+            }
+            container.innerHTML = finalHTML;
+        }
+
+        function populateFormFromState() {
+            const keyMap = { fontsize: 'fontSize', linespacing: 'lineSpacing' };
+            const ids = ['sel-theme', 'sel-font', 'sel-layout', 'sel-fontsize-preset', 'rng-linespacing'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const rawKey = id.split('-')[1];
+                const key = keyMap[rawKey] || rawKey;
+                const val = state.settings[key] ?? DEFAULT_SETTINGS[key];
+                if (id === 'sel-fontsize-preset') {
+                    const v = parseFloat(val);
+                    el.value = v <= 12 ? '11' : v <= 15 ? '14' : '17';
+                } else el.value = val;
+            });
+            const pIds = ['name', 'title', 'email', 'phone', 'location', 'link', 'summary'];
+            pIds.forEach(id => { const el = document.getElementById('inp-'+id); if (el) el.value = state.personal[id] || ''; });
+            const photoP = document.getElementById('inp-photo-preview'); photoP.src = state.personal.photo || getAvatar(state.personal.name);
+            renderAllForms();
+        }
+
+        function updateSidebarOrder() {
+            state.sectionOrder.forEach((id, idx) => { const el = document.getElementById(`sidebar-sec-${id}`); if (el) el.style.order = idx + 1; });
+            updatePreview();
+        }
+
+        function createNewProfile() {
+            const id = 'prof_' + generateId();
+            appData.profiles[id] = JSON.parse(JSON.stringify(EMPTY_PROFILE));
+            appData.profiles[id].name = "New Resume " + (Object.keys(appData.profiles).length);
+            switchProfile(id);
+            updateProfileDropdown();
+            showToast("New profile created", "success");
+        }
+
+        function renameCurrentProfile() {
+            openModal({ title: "Rename Profile", type: "prompt", defaultValue: state.name }, (n) => { if (n && n.trim()) { state.name = n.trim(); updateProfileDropdown(); saveState(); } });
+        }
+
+        function deleteCurrentProfile() {
+            const profileIds = Object.keys(appData.profiles);
+            if (profileIds.length <= 1) return showToast("Cannot delete only profile.", "error");
+            openModal({ title: "Delete Profile?", msg: `Irreversible removal of "${state.name}".`, type: "confirm" }, (confirmed) => {
+                if (confirmed) {
+                    delete appData.profiles[appData.activeProfileId];
+                    switchProfile(Object.keys(appData.profiles)[0]);
+                    updateProfileDropdown();
+                    showToast("Profile deleted", "success");
+                }
+            });
+        }
+
+        function exportJSON() {
+            const s = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+            const a = document.createElement('a'); a.setAttribute("href", s); a.setAttribute("download", `ResumeBackup.json`); a.click();
+        }
+
+        function importJSON(e) {
+            const f = e.target.files[0]; if (!f) return;
+            const r = new FileReader(); r.onload = (ev) => { 
+                try { appData = JSON.parse(ev.target.result); switchProfile(appData.activeProfileId); updateProfileDropdown(); showToast("Backup restored!", "success"); } 
+                catch(e) { showToast("Invalid backup!", "error"); }
+            }; r.readAsText(f);
+        }
+
+        function openDownloadOptions() {
+            const formats = [
+                { id: 'pdf-a4', label: 'PDF (A4)', icon: 'fa-file-pdf', fn: 'downloadAsPDF' },
+                { id: 'pdf-letter', label: 'PDF (Letter)', icon: 'fa-file-pdf', fn: 'downloadAsPDFLetter' },
+                { id: 'html', label: 'HTML (editable, Word-compatible)', icon: 'fa-file-code', fn: 'downloadAsHTML' },
+                { id: 'txt', label: 'Plain Text (.txt)', icon: 'fa-file-lines', fn: 'downloadAsTXT' }
+            ];
+            const content = `<div class="space-y-4"><p class="text-white/60 text-sm">Choose download format:</p><div class="grid grid-cols-2 gap-3">${formats.map(f=>`<button onclick="${f.fn}();this.closest('.fixed').remove()" class="p-4 bg-white/10 hover:bg-white/20 rounded-lg text-white text-left transition-all flex items-center gap-2"><i class="fa-solid ${f.icon} text-blue-400"></i>${f.label}</button>`).join('')}</div></div>`;
+            openModalFull('<i class="fa-solid fa-download text-blue-500"></i> Download copy', content);
+        }
+        function downloadAsPDF() { downloadPDF('a4'); }
+        function downloadAsPDFLetter() { downloadPDF('letter'); }
+        function downloadPDF(fmt) {
+            const el = document.getElementById('resume-preview');
+            if (!el) { showToast('Nothing to export', 'error'); return; }
+            const shadow = el.style.boxShadow; el.style.boxShadow = 'none';
+            html2pdf().set({ margin:0, filename:`${state.personal.name || 'Resume'}.pdf`, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true}, jsPDF:{unit:'mm',format:fmt,orientation:'portrait'} }).from(el).save().then(() => { el.style.boxShadow = shadow; showToast('PDF downloaded!', 'success'); });
+        }
+        function downloadAsHTML() {
+            const el = document.getElementById('resume-preview');
+            if (!el) { showToast('Nothing to export', 'error'); return; }
+            const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${state.personal.name || 'Resume'}</title></head><body>${el.outerHTML}</body></html>`;
+            const blob = new Blob([html], {type: 'text/html'});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${state.personal.name || 'Resume'}.html`; a.click(); URL.revokeObjectURL(a.href);
+            showToast('HTML downloaded! Open in Word to save as DOCX.', 'success');
+        }
+        function downloadAsTXT() {
+            const el = document.getElementById('resume-preview');
+            if (!el) { showToast('Nothing to export', 'error'); return; }
+            const txt = el.innerText || el.textContent || '';
+            const blob = new Blob([txt], {type: 'text/plain'});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${state.personal.name || 'Resume'}.txt`; a.click(); URL.revokeObjectURL(a.href);
+            showToast('Text file downloaded!', 'success');
+        }
+
+        function initSampleData() {
+            const id = 'sample_engineer';
+            appData.profiles[id] = {
+                name: "Alexander Sterling",
+                personal: { 
+                    name: "Alexander Sterling", title: "Senior Full Stack Engineer", 
+                    email: "alex.sterling@dev.io", phone: "+1 (555) 123-4567", 
+                    location: "Austin, TX", link: "github.com/asterling", 
+                    summary: "Highly analytical Senior Full Stack Engineer with 8+ years of experience specializing in high-performance web applications and distributed systems. Expert in TypeScript, React, and Node.js with a proven track record of reducing infrastructure costs and improving frontend load times by over 40%.", 
+                    skills: "TypeScript, React, Node.js, Next.js, PostgreSQL, Redis, Docker, Kubernetes, AWS, GraphQL" 
+                },
+                experience: [
+                    { id: generateId(), role: "Senior Full Stack Engineer", company: "DataFlow Systems", date: "2020 - Present", desc: "<ul><li>Architected and migrated legacy monolith to a modern Node.js/React stack, resulting in a <b>50% reduction</b> in server response times.</li><li>Implemented automated CI/CD pipelines using GitHub Actions, decreasing deployment-related downtime by 90%.</li></ul>", visible: true },
+                    { id: generateId(), role: "Software Engineer", company: "Swiftly Mobile", date: "2017 - 2020", desc: "<ul><li>Developed core API features for a ride-sharing application using Golang and PostgreSQL.</li><li>Optimized database queries and indexing strategies, improving performance by 30%.</li></ul>", visible: true }
+                ],
+                education: [ { id: generateId(), degree: "B.S. in Computer Science", school: "University of Texas at Austin", date: "2011 - 2015", visible: true } ],
+                certifications: [ { id: generateId(), title: "AWS Certified Developer – Associate", subtitle: "Amazon Web Services", date: "2022", visible: true } ],
+                customSections: [],
+                sectionOrder: [...DEFAULT_SECTION_ORDER],
+                settings: { theme: 'blue', font: 'merriweather', layout: 'single', fontSize: 14, lineSpacing: 1.6 }
+            };
+            return id;
+        }
+
+        function loadSampleData() {
+            const id = initSampleData();
+            switchProfile(id);
+            updateSettings('layout', 'single');
+            updateSettings('font', 'merriweather');
+            updateProfileDropdown();
+            showToast("Sample Guide loaded", "success");
+        }
+
+        function showToast(m, t) {
+            const c = document.getElementById('toast-container'); const e = document.createElement('div');
+            const icon = t === 'success' ? 'fa-circle-check text-emerald-400' : 'fa-circle-exclamation text-red-400';
+            e.className = `flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#1e293b] border border-slate-700 text-xs font-bold uppercase tracking-widest text-slate-200 shadow-2xl transition-all duration-300 translate-y-10 opacity-0`;
+            e.innerHTML = `<i class="fa-solid ${icon}"></i><span>${m}</span>`; c.appendChild(e); requestAnimationFrame(() => { e.classList.remove('translate-y-10', 'opacity-0'); });
+            setTimeout(() => { e.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => e.remove(), 300); }, 3000);
+        }
+
+        function openModalFull(title, contentHTML, extraClass = '') {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `<div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 ${extraClass}"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold text-white flex items-center gap-3">${title}</h3><button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors"><i class="fa-solid fa-times text-xl"></i></button></div>${contentHTML}</div>`;
+            document.body.appendChild(modal);
+            return modal;
+        }
+
+        function openCoverLetterBuilder() {
+            const p = state.personal;
+            const topSkill = (p.skills || '').split(',')[0]?.trim() || 'software development';
+            const content = `<div class="space-y-4"><label class="form-label">Company / Role</label><input id="cl-company" class="form-input" placeholder="e.g. Acme Corp - Senior Engineer"><label class="form-label">Cover Letter Draft</label><textarea id="cl-draft" class="form-input h-48 resize-none"></textarea><button onclick="copyCoverLetter()" class="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-white font-semibold"><i class="fa-solid fa-copy"></i> Copy to Clipboard</button></div>`;
+            openModalFull('<i class="fa-solid fa-file-pen text-indigo-500"></i> Cover Letter Builder', content);
+            setTimeout(regenerateCoverLetter, 50);
+        }
+        function regenerateCoverLetter() {
+            const p = state?.personal || {};
+            const company = document.getElementById('cl-company');
+            const draft = document.getElementById('cl-draft');
+            const comp = company ? company.value.trim() : '';
+            if (draft) draft.value = `Dear Hiring Manager,\n\nI am writing to express my interest in the position at ${comp || 'your company'}. With my background in ${(p.skills || '').split(',')[0]?.trim() || 'software development'}, I am confident I can contribute effectively.\n\n${p.summary || 'I bring relevant experience and a strong track record of delivery.'}\n\nI would welcome the opportunity to discuss how my skills align with your needs.\n\nSincerely,\n${p.name || 'Your Name'}`;
+        }
+        function copyCoverLetter() { const t = document.getElementById('cl-draft'); if (t) { navigator.clipboard.writeText(t.value); showToast('Cover letter copied!', 'success'); } }
+
+        function openDownloadOptions() {
+            console.log('Download Options clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-3xl p-4">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-download text-blue-500"></i> Download Options
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <label class="form-label">File Name</label>
+                            <input id="download-filename" class="form-input" placeholder="resume" value="${state.personal.name || 'resume'}">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <button onclick="downloadResume('pdf')" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-file-pdf"></i> Download as PDF
+                            </button>
+                            <button onclick="downloadResume('docx')" class="w-full px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-file-word"></i> Download as Word
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function downloadResume(format) {
+            const filename = (document.getElementById('download-filename')?.value || 'resume').replace(/[^a-zA-Z0-9]/g, '_');
+            const content = document.getElementById('resume-preview').innerHTML;
+            
+            if (format === 'pdf') {
+                const opt = {
+                    margin: 10,
+                    filename: `${filename}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        letterRendering: true
+                    }
+                };
+                html2pdf().set(opt).from(document.getElementById('resume-preview')).save();
+            } else if (format === 'docx' || format === 'doc') {
+                const preHtml = `<html xmlns:o="urn:schemas-microsoft-compatibility:office:office:word" xmlns:v="urn:schemas-microsoft-compatibility:vml" xmlns:xl="urn:schemas-microsoft-compatibility:office:excel">
+                    <head>
+                        <meta charset="utf-8">
+                        <title>${filename}</title>
+                        <!--[if gte mso 9]>
+                        <xml>
+                            <w:WordDocument>
+                                <w:View>
+                                    <w:Zoom>0</w:Zoom>
+                                    <w:Print>
+                                        <w:Print>
+                                            <w:Paper>
+                                                <w:PaperSize>A4</w:PaperSize>
+                                            </w:Paper>
+                                        </w:Print>
+                                    </w:View>
+                                </w:WordDocument>
+                            </xml>
+                        <![endif]-->
+                    </head>
+                    <body>
+                        ${content.replace(/<style[^>]*>/g, '')}
+                    </body>
+                </html>`;
+                
+                const blob = new Blob([preHtml], { type: format === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.${format}`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+            
+            showToast(`Downloading as ${format.toUpperCase()}...`, 'success');
+        }
+        
+        function openJobDescriptionMatcher() {
+            const content = `<div class="space-y-4"><label class="form-label">Paste Job Description</label><textarea id="jd-input" class="form-input h-32 resize-none" placeholder="Paste the full job description here..."></textarea><button onclick="matchJD()" class="w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-semibold"><i class="fa-solid fa-bullseye"></i> Analyze Match</button><div id="jd-results" class="bg-white/10 rounded-lg p-4 min-h-[120px] text-sm text-white/90"></div></div>`;
+            openModalFull('<i class="fa-solid fa-bullseye text-emerald-500"></i> Job Description Matcher', content);
+        }
+        function matchJD() {
+            const jd = (document.getElementById('jd-input')?.value || '').toLowerCase();
+            const skills = (state.personal.skills || '').toLowerCase().split(',').map(s => s.trim()).filter(Boolean);
+            const summary = (state.personal.summary || '').toLowerCase();
+            const expText = state.experience.map(e => (e.desc || '').toLowerCase()).join(' ');
+            const allResume = (skills.join(' ') + ' ' + summary + ' ' + expText).toLowerCase();
+            const jdWords = jd.split(/\s+/).filter(w => w.length > 3);
+            const matched = [], missing = [];
+            jdWords.forEach(w => { if (allResume.includes(w) && !matched.includes(w)) matched.push(w); });
+            skills.forEach(s => { if (jd.includes(s) && !matched.includes(s)) matched.push(s); });
+            const topJd = [...new Set(jd.match(/\b\w{4,}\b/g) || [])].slice(0, 40);
+            topJd.forEach(w => { if (!allResume.includes(w) && !missing.includes(w)) missing.push(w); });
+            const score = Math.min(100, Math.round((matched.length / Math.max(1, topJd.length)) * 100));
+            const el = document.getElementById('jd-results');
+            if (el) el.innerHTML = `<p class="text-emerald-400 font-bold mb-2">Match Score: ${score}%</p><p class="text-white/70 text-xs mb-2">Matched keywords: ${matched.slice(0,15).join(', ')}${matched.length>15?'...':''}</p><p class="text-amber-400 text-xs">Consider adding: ${missing.slice(0,10).join(', ')}${missing.length>10?'...':''}</p>`;
+        }
+
+        function openFontSizePresets() {
+            const presets = [ { name: 'Compact', size: 10, line: 1.3 }, { name: 'Small', size: 11, line: 1.4 }, { name: 'Standard', size: 12, line: 1.5 }, { name: 'Default', size: 14, line: 1.6 }, { name: 'Large', size: 16, line: 1.7 }, { name: 'Readable', size: 18, line: 1.8 } ];
+            const content = `<div class="grid grid-cols-2 gap-3">${presets.map(p => `<button onclick="applyFontPreset(${p.size},${p.line});this.closest('.fixed').remove()" class="p-4 bg-white/10 hover:bg-white/20 rounded-lg text-white text-left transition-all"><strong>${p.name}</strong><br><span class="text-white/60 text-xs">${p.size}px / ${p.line} line height</span></button>`).join('')}</div>`;
+            openModalFull('<i class="fa-solid fa-text-height text-slate-400"></i> Font Size Presets', content);
+        }
+        function applyFontPreset(size, line) { updateSettings('fontSize', size); updateSettings('lineSpacing', line); showToast('Font preset applied', 'success'); }
+
+        function openKeywordDensityChecker() {
+            const text = ((state.personal.summary || '') + ' ' + (state.personal.skills || '') + ' ' + state.experience.map(e => e.desc || '').join(' ')).toLowerCase().replace(/<[^>]+>/g,' ');
+            const words = text.match(/\b\w+\b/g) || [];
+            const total = words.length;
+            const freq = {};
+            words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+            const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0, 20);
+            const content = `<p class="text-white/60 text-sm mb-4">Total words: ${total}. Top 20 by frequency:</p><div class="space-y-1">${sorted.map(([w,c]) => `<div class="flex justify-between text-sm"><span>${w}</span><span class="text-amber-400">${c} (${total?(c/total*100).toFixed(1):0}%)</span></div>`).join('')}</div>`;
+            openModalFull('<i class="fa-solid fa-key text-amber-500"></i> Keyword Density Checker', content);
+        }
+
+        function openReadabilityAnalyzer() {
+            const text = ((state.personal.summary || '') + ' ' + state.experience.map(e => e.desc || '').join(' ')).replace(/<[^>]+>/g,' ');
+            const words = (text.match(/\b\w+\b/g) || []).length;
+            const sents = (text.match(/[.!?]+/g) || []).length || 1;
+            const syllEst = text.split(/\s+/).filter(Boolean).reduce((n,w)=> n + Math.max(1, Math.ceil(w.length/3)), 0);
+            const flesch = words ? 206.835 - 1.015*(words/sents) - 84.6*(syllEst/words) : 0;
+            const grade = words ? Math.max(1, Math.min(20, Math.round(0.39*(words/sents) + 11.8*(syllEst/words) - 15.59))) : 0;
+            const content = `<div class="space-y-4"><div class="grid grid-cols-2 gap-4"><div class="bg-white/10 rounded p-4"><p class="text-white/60 text-xs">Readability Score</p><p class="text-2xl text-cyan-400 font-bold">${Math.round(flesch)}</p><p class="text-white/60 text-xs">0-100, higher = easier</p></div><div class="bg-white/10 rounded p-4"><p class="text-white/60 text-xs">Est. Grade Level</p><p class="text-2xl text-cyan-400 font-bold">${grade}</p></div></div><p class="text-white/70 text-sm">${flesch>=60?'Good':'Consider simplifying sentences'} for resume readability.</p></div>`;
+            openModalFull('<i class="fa-solid fa-book-open text-cyan-500"></i> Readability Score Analyzer', content);
+        }
+
+        function openATSCompatibilityChecker() {
+            const issues = [];
+            let score = 100;
+            if (!state.personal.name || !state.personal.name.trim()) { issues.push('Missing name'); score -= 15; }
+            if (!state.personal.email || !state.personal.email.trim()) { issues.push('Missing email'); score -= 15; }
+            if (!state.personal.summary || state.personal.summary.trim().length < 50) { issues.push('Add a professional summary (50+ chars)'); score -= 10; }
+            const skills = (state.personal.skills || '').split(',').map(s=>s.trim()).filter(Boolean);
+            if (skills.length < 5) { issues.push('Add 5+ skills for better ATS match'); score -= 10; }
+            if (state.experience.length === 0) { issues.push('Add at least one work experience'); score -= 15; }
+            const hasTables = /<table\b/.test(JSON.stringify(state));
+            if (hasTables) { issues.push('Tables may not parse well in ATS'); score -= 10; }
+            score = Math.max(0, score);
+            const content = `<div class="space-y-4"><div class="text-center"><p class="text-4xl font-bold text-violet-400">${score}%</p><p class="text-white/60 text-sm">ATS Compatibility</p></div><ul class="space-y-2">${issues.length?issues.map(i=>`<li class="text-amber-400 text-sm">• ${i}</li>`).join(''):'<li class="text-emerald-400">No major issues detected.</li>'}</ul><p class="text-white/50 text-xs mt-4">Tip: Use standard section headers, avoid columns/tables, include relevant keywords.</p></div>`;
+            openModalFull('<i class="fa-solid fa-robot text-violet-500"></i> ATS Compatibility Checker', content);
+        }
+
+        function createFreshCV() {
+            const id = 'fresh_' + generateId();
+            appData.profiles[id] = JSON.parse(JSON.stringify(EMPTY_PROFILE));
+            appData.profiles[id].name = 'New Resume';
+            switchProfile(id);
+            updateProfileDropdown();
+            showToast('Fresh CV created', 'success');
+        }
+
+        function openQRCodeGenerator() {
+            const url = state.personal.link ? (state.personal.link.startsWith('http') ? state.personal.link : 'https://' + state.personal.link) : 'https://example.com/resume';
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+            const content = `<div class="text-center space-y-4"><p class="text-white/60 text-sm">QR code for your resume/portfolio link</p><img src="${qrUrl}" alt="QR Code" class="mx-auto rounded-lg border border-slate-700"><a href="${qrUrl}&format=png" download="resume-qr.png" class="inline-block px-4 py-2 bg-lime-600 hover:bg-lime-500 rounded-lg text-white font-semibold"><i class="fa-solid fa-download"></i> Download QR</a></div>`;
+            openModalFull('<i class="fa-solid fa-qrcode text-lime-500"></i> QR Code Generator', content);
+        }
+
+        function openEmailTemplates() {
+            const name = state.personal.name || 'Your Name';
+            const templates = [
+                { name: 'Follow-up', subj: 'Following up on my application', body: 'Dear Hiring Manager,\n\nI wanted to follow up on my application for [Position]. I am very interested and would appreciate any update.\n\nBest regards,\n' + name },
+                { name: 'Thank you', subj: 'Thank you for the interview', body: 'Dear [Interviewer],\n\nThank you for taking the time to speak with me. I enjoyed learning about [Company]. I look forward to hearing from you.\n\nSincerely,\n' + name },
+                { name: 'Networking', subj: 'Introduction and interest in [Company]', body: 'Hi [Name],\n\nI came across your profile and would like to connect. I am particularly interested in [topic/role]. Would you have 15 minutes for a brief chat?\n\nBest,\n' + name },
+                { name: 'Decline offer', subj: 'Regarding the [Position] offer', body: 'Dear [Hiring Manager],\n\nThank you for the offer. After careful consideration, I have decided to pursue a different opportunity. I appreciate your time and wish you and [Company] all the best.\n\nSincerely,\n' + name },
+                { name: 'Accept offer', subj: 'Accepting the [Position] offer', body: 'Dear [Hiring Manager],\n\nI am pleased to formally accept the offer for [Position]. I am excited to join [Company] and look forward to starting on [Date].\n\nSincerely,\n' + name },
+                { name: 'Request extension', subj: 'Request for additional time - [Position]', body: 'Dear [Hiring Manager],\n\nThank you for the offer. I am very interested in joining [Company]. Would it be possible to extend the decision deadline by [X] days to allow me to complete my evaluation?\n\nBest regards,\n' + name },
+                { name: 'Withdraw application', subj: 'Withdrawing my application - [Position]', body: 'Dear [Hiring Manager],\n\nI am writing to withdraw my application for the [Position]. I have accepted another opportunity. Thank you for considering my candidacy.\n\nBest regards,\n' + name }
+            ];
+            const content = `<div class="space-y-4">${templates.map((t,i)=>`<div class="bg-white/10 rounded p-4"><p class="font-bold text-white mb-2">${t.name}</p><p class="text-white/60 text-xs mb-1">Subject: ${t.subj}</p><pre class="text-xs text-white/80 whitespace-pre-wrap">${t.body}</pre><button onclick="copyEmailTemplate(${i})" class="mt-2 text-orange-400 text-xs font-bold">Copy</button></div>`).join('')}</div>`;
+            openModalFull('<i class="fa-solid fa-envelope text-orange-500"></i> Email Templates', content);
+            window._emailTemplates = templates;
+        }
+        function copyEmailTemplate(i) { const t = window._emailTemplates?.[i]; if (t) { navigator.clipboard.writeText('Subject: '+t.subj+'\n\n'+t.body); showToast('Template copied!', 'success'); } }
+
+        function createResumeVariant() {
+            const id = 'var_' + generateId();
+            appData.profiles[id] = JSON.parse(JSON.stringify(state));
+            appData.profiles[id].name = (state.name || 'Resume') + ' (Variant)';
+            switchProfile(id);
+            updateProfileDropdown();
+            showToast('New variant created', 'success');
+        }
+
+        function openSkillsGapAnalysis() {
+            const jd = prompt('Paste key skills from job description (comma-separated):') || '';
+            const jdSkills = jd.toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+            const mySkills = (state.personal.skills||'').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+            const matched = jdSkills.filter(s=> mySkills.some(m=> m.includes(s) || s.includes(m)));
+            const missing = jdSkills.filter(s=> !matched.includes(s));
+            const content = `<div class="space-y-4"><p class="text-emerald-400">You have ${matched.length} matching skills</p>${missing.length?`<p class="text-amber-400">Consider adding: ${missing.join(', ')}</p>`:'<p class="text-emerald-400">Strong match!</p>'}</div>`;
+            openModalFull('<i class="fa-solid fa-triangle-exclamation text-sky-500"></i> Skills Gap Analysis', content);
+        }
+
+        function calculateResumeStrength() {
+            let score = 50;
+            if (state.personal.name && state.personal.email) score += 10;
+            if (state.personal.summary && state.personal.summary.length > 100) score += 10;
+            if ((state.personal.skills||'').split(',').map(s=>s.trim()).filter(Boolean).length >= 5) score += 10;
+            if (state.experience.length >= 2) score += 10;
+            if (state.experience.some(e=>(e.desc||'').match(/\d+%|\$\d+|\d+x/))) score += 10;
+            score = Math.min(100, score);
+            const content = `<div class="text-center space-y-4"><p class="text-5xl font-bold ${score>=80?'text-emerald-400':score>=60?'text-amber-400':'text-red-400'}">${score}/100</p><p class="text-white/70">Resume Strength Score</p><p class="text-white/60 text-sm">Add quantified achievements and more skills to improve.</p></div>`;
+            openModalFull('<i class="fa-solid fa-gauge-high text-green-500"></i> Resume Strength Score', content);
+        }
+
+        function openComparisonTool() {
+            const ids = Object.keys(appData.profiles);
+            if (ids.length < 2) { showToast('Need at least 2 resumes to compare', 'error'); return; }
+            const content = `<div class="space-y-4"><p class="text-white/60 text-sm">Select two resumes to compare:</p><div class="flex gap-4"><select id="compare-a" class="form-input flex-1">${ids.map(i=>`<option value="${i}">${appData.profiles[i].name}</option>`).join('')}</select><select id="compare-b" class="form-input flex-1">${ids.map(i=>`<option value="${i}">${appData.profiles[i].name}</option>`).join('')}</select></div><button onclick="runCompare()" class="w-full px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold">Compare</button><div id="compare-result" class="bg-white/10 rounded p-4 min-h-[80px] text-sm"></div></div>`;
+            openModalFull('<i class="fa-solid fa-scale-balanced text-red-500"></i> Compare Resumes', content);
+        }
+        function runCompare() {
+            const aId = document.getElementById('compare-a')?.value, bId = document.getElementById('compare-b')?.value;
+            const a = aId ? appData.profiles[aId] : null, b = bId ? appData.profiles[bId] : null;
+            if (!a || !b) return;
+            const el = document.getElementById('compare-result');
+            if (el) el.innerHTML = `<p>Resume A: ${a.experience?.length || 0} roles, ${(a.personal?.skills||'').split(',').filter(Boolean).length} skills</p><p>Resume B: ${b.experience?.length || 0} roles, ${(b.personal?.skills||'').split(',').filter(Boolean).length} skills</p><p class="text-white/60 mt-2">Use the dropdown above to switch between profiles.</p>`;
+        }
+
+        function openQualityCheck() {
+            console.log('Quality Check clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            
+            // Create modal content
+            const modalContent = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-star text-purple-500"></i> Resume Quality Check
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">Quality Analysis</label>
+                            <div id="quality-results" class="bg-white/10 backdrop-blur-sm rounded-lg p-4 h-64 overflow-y-auto text-white text-sm">
+                                <p class="text-white/60">Analyzing resume quality...</p>
+                            </div>
+                            <button onclick="runQualityCheck()" class="w-full mt-3 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-search"></i> Analyze Quality
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Quality Score</label>
+                            <div id="quality-score" class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                                <div class="text-6xl font-bold text-white mb-2" id="score-number">--</div>
+                                <div class="text-sm text-white/60" id="score-description">Click \"Analyze Quality\" to score your resume</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.innerHTML = modalContent;
+            document.body.appendChild(modal);
+        }
+        
+        function createNewResume() {
+            console.log('New Resume clicked');
+            if (confirm('Create a new resume? This will save your current resume and start fresh.')) {
+                // Save current state
+                saveState();
+                
+                // Reset to empty state (but keep existing profiles)
+                const currentProfiles = { ...appData.profiles };
+                
+                // Generate new ID
+                const newId = generateId();
+                state.personal.id = newId;
+                
+                // Add to profiles (preserve existing ones)
+                const profileName = `Resume ${Object.keys(currentProfiles).length + 1}`;
+                appData.profiles[newId] = {
+                    ...state,
+                    name: profileName
+                };
+                appData.activeProfileId = newId;
+                
+                // Save to localStorage
+                localStorage.setItem('resume_builder_app_data', JSON.stringify(appData));
+                
+                // Update UI
+                populateFormFromState();
+                updateProfileDropdown();
+                updatePreview();
+                
+                showToast('New resume created successfully!', 'success');
+            }
+        }
+        
+        function runQualityCheck() {
+            const results = document.getElementById('quality-results');
+            const scoreElement = document.getElementById('score-number');
+            const scoreDesc = document.getElementById('score-description');
+            let score = 0;
+            const issues = [];
+            
+            // Check content completeness
+            const hasName = state.personal.name && state.personal.name.trim();
+            const hasSummary = state.personal.summary && state.personal.summary.trim();
+            const hasSkills = state.personal.skills && state.personal.skills.trim();
+            const hasExperience = state.experience && state.experience.length > 0;
+            const hasEducation = state.education && state.education.length > 0;
+            
+            if (hasName) score += 15;
+            else issues.push({ type: 'missing', issue: 'Missing name', severity: 'high' });
+            
+            if (hasSummary) score += 20;
+            else issues.push({ type: 'missing', issue: 'Missing professional summary', severity: 'high' });
+            
+            if (hasSkills) score += 15;
+            else issues.push({ type: 'missing', issue: 'Missing skills section', severity: 'medium' });
+            
+            if (hasExperience && state.experience.length >= 2) score += 25;
+            else if (hasExperience) score += 15;
+            else issues.push({ type: 'missing', issue: 'Missing work experience', severity: 'high' });
+            
+            if (hasEducation) score += 15;
+            else issues.push({ type: 'missing', issue: 'Missing education', severity: 'medium' });
+            
+            // Check content quality
+            const summaryLength = state.personal.summary ? state.personal.summary.length : 0;
+            if (summaryLength >= 100 && summaryLength <= 300) score += 10;
+            else if (summaryLength < 100) issues.push({ type: 'quality', issue: 'Summary too short (aim for 100-300 characters)', severity: 'medium' });
+            else if (summaryLength > 300) issues.push({ type: 'quality', issue: 'Summary too long (aim for 100-300 characters)', severity: 'low' });
+            
+            // Check experience descriptions
+            const expWithDesc = state.experience.filter(e => e.desc && e.desc.trim().length > 20);
+            if (expWithDesc.length === state.experience.length && state.experience.length > 0) score += 15;
+            else issues.push({ type: 'quality', issue: 'Some experience entries lack detailed descriptions', severity: 'medium' });
+            
+            // Cap score at 100
+            score = Math.min(score, 100);
+            
+            // Display results
+            const scoreColor = score >= 80 ? 'text-green-400' : score >= 60 ? 'text-yellow-400' : 'text-red-400';
+            const scoreLabel = score >= 80 ? 'Excellent' : score >= 60 ? 'Good' : 'Needs Improvement';
+            
+            scoreElement.textContent = score;
+            scoreElement.className = `text-6xl font-bold mb-2 ${scoreColor}`;
+            scoreDesc.textContent = `Your resume quality is: ${scoreLabel}`;
+            
+            results.innerHTML = `
+                <div class="space-y-3">
+                    <p class="text-purple-400 font-semibold mb-2">Quality Analysis Results:</p>
+                    ${issues.map(issue => `
+                        <div class="bg-white/5 rounded p-3 border-l-4 ${
+                            issue.severity === 'high' ? 'border-red-400' :
+                            issue.severity === 'medium' ? 'border-yellow-400' :
+                            'border-blue-400'
+                        }">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-${
+                                    issue.type === 'missing' ? 'exclamation-triangle' :
+                                    issue.type === 'quality' ? 'info-circle' :
+                                    'check-circle'
+                                } text-${
+                                    issue.severity === 'high' ? 'red-400' :
+                                    issue.severity === 'medium' ? 'yellow-400' :
+                                    'blue-400'
+                                } mt-1"></i>
+                                <div class="flex-1">
+                                    <p class="text-xs mb-1">${issue.issue}</p>
+                                    <p class="text-xs text-white/60">Severity: ${issue.severity}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function openAchievementQuantifier() {
+            console.log('Achievement Quantifier clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-chart-line text-green-500"></i> Achievement Quantifier
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">Enter Achievement Description</label>
+                            <textarea id="achievement-input" class="form-input h-32 resize-none" placeholder="e.g., 'Improved team productivity by implementing new processes'"></textarea>
+                            <button onclick="quantifyAchievement()" class="w-full mt-3 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-calculator"></i> Quantify Achievement
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Quantified Results</label>
+                            <div id="quantified-results" class="bg-white/10 backdrop-blur-sm rounded-lg p-4 h-32 overflow-y-auto text-white text-sm">
+                                <p class="text-white/60">Enter an achievement and click "Quantify Achievement" to see measurable results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function quantifyAchievement() {
+            const input = document.getElementById('achievement-input').value.toLowerCase();
+            const results = document.getElementById('quantified-results');
+            
+            if (!input.trim()) {
+                results.innerHTML = '<p class="text-red-400">Please enter an achievement description.</p>';
+                return;
+            }
+            
+            // Generate quantified suggestions
+            const suggestions = [];
+            
+            // Look for improvement indicators
+            if (input.includes('improved') || input.includes('increased') || input.includes('enhanced')) {
+                suggestions.push('Improved performance by 25% through strategic initiatives');
+                suggestions.push('Increased efficiency by 30% by implementing new processes');
+                suggestions.push('Enhanced productivity by 40% with optimized workflows');
+            }
+            
+            // Look for reduction indicators
+            if (input.includes('reduced') || input.includes('decreased') || input.includes('saved')) {
+                suggestions.push('Reduced operational costs by $50,000 annually');
+                suggestions.push('Decreased processing time by 35% through automation');
+                suggestions.push('Saved 20 hours per week with streamlined procedures');
+            }
+            
+            // Look for management indicators
+            if (input.includes('managed') || input.includes('led') || input.includes('team')) {
+                suggestions.push('Managed team of 15 professionals with 95% retention rate');
+                suggestions.push('Led cross-functional team of 8 members to deliver 3 major projects');
+                suggestions.push('Supervised department budget of $2M with 10% cost savings');
+            }
+            
+            // Look for project indicators
+            if (input.includes('project') || input.includes('completed') || input.includes('delivered')) {
+                suggestions.push('Completed 12 projects on time with 98% client satisfaction');
+                suggestions.push('Delivered 25% increase in project throughput');
+                suggestions.push('Managed project lifecycle from conception to deployment');
+            }
+            
+            // Default suggestions if no patterns found
+            if (suggestions.length === 0) {
+                suggestions.push('Achieved 15% improvement in key performance metrics');
+                suggestions.push('Generated $100K in revenue through strategic initiatives');
+                suggestions.push('Reduced errors by 45% through quality control measures');
+            }
+            
+            results.innerHTML = `
+                <div class="space-y-2">
+                    <p class="text-green-400 font-semibold mb-2">Quantified Suggestions:</p>
+                    ${suggestions.map(s => `<div class="bg-white/5 rounded p-2 text-xs">• ${s}</div>`).join('')}
+                </div>
+            `;
+        }
+        
+        function addAchievementPattern(text) {
+            const input = document.getElementById('achievement-input');
+            if (input) { input.value = (input.value ? input.value + ' ' : '') + text; input.focus(); }
+        }
+        
+        function openIndustryTemplates() {
+            console.log('Industry Templates clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-6xl p-6 max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-briefcase text-blue-500"></i> Industry-Specific Templates
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('technology')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-laptop-code text-3xl text-blue-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Technology/IT</h4>
+                            <p class="text-white/70 text-xs">For software developers, IT professionals, and tech roles</p>
+                            <div class="mt-3 text-xs text-blue-300">• Technical Skills • Projects • Certifications</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('healthcare')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-heartbeat text-3xl text-red-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Healthcare</h4>
+                            <p class="text-white/70 text-xs">For doctors, nurses, and medical professionals</p>
+                            <div class="mt-3 text-xs text-red-300">• Licenses • Clinical Experience • Research</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('finance')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-chart-line text-3xl text-green-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Finance/Banking</h4>
+                            <p class="text-white/70 text-xs">For financial analysts, bankers, and accountants</p>
+                            <div class="mt-3 text-xs text-green-300">• Financial Skills • Risk Management • Compliance</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('education')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-graduation-cap text-3xl text-purple-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Education</h4>
+                            <p class="text-white/70 text-xs">For teachers, professors, and education professionals</p>
+                            <div class="mt-3 text-xs text-purple-300">• Teaching Experience • Publications • Research</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('marketing')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-bullhorn text-3xl text-orange-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Marketing/Sales</h4>
+                            <p class="text-white/70 text-xs">For marketers, sales professionals, and PR specialists</p>
+                            <div class="mt-3 text-xs text-orange-300">• Campaign Results • Client Acquisition • Analytics</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('legal')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-gavel text-3xl text-yellow-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Legal</h4>
+                            <p class="text-white/70 text-xs">For lawyers, paralegals, and legal professionals</p>
+                            <div class="mt-3 text-xs text-yellow-300">• Bar Admissions • Case Experience • Specializations</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('engineering')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-cogs text-3xl text-cyan-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Engineering</h4>
+                            <p class="text-white/70 text-xs">For engineers, architects, and technical specialists</p>
+                            <div class="mt-3 text-xs text-cyan-300">• Technical Projects • Patents • Methodologies</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('creative')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-palette text-3xl text-pink-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Creative/Design</h4>
+                            <p class="text-white/70 text-xs">For designers, artists, and creative professionals</p>
+                            <div class="mt-3 text-xs text-pink-300">• Portfolio • Tools • Awards • Publications</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all cursor-pointer" onclick="applyIndustryTemplate('consulting')">
+                            <div class="text-center mb-3">
+                                <i class="fa-solid fa-handshake text-3xl text-teal-400"></i>
+                            </div>
+                            <h4 class="text-white font-semibold mb-2">Consulting</h4>
+                            <p class="text-white/70 text-xs">For consultants, advisors, and strategy professionals</p>
+                            <div class="mt-3 text-xs text-teal-300">• Client Projects • Industry Expertise • Methodologies</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function applyIndustryTemplate(industry) {
+            const templates = {
+                technology: {
+                    summary: 'Results-driven software engineer with 5+ years of experience developing scalable web applications and leading cross-functional teams. Proficient in modern JavaScript frameworks, cloud technologies, and agile methodologies.',
+                    skills: 'JavaScript, React, Node.js, Python, AWS, Docker, Git, Agile, REST APIs, MongoDB, PostgreSQL, CI/CD',
+                    experience: [
+                        { role: 'Senior Software Engineer', org: 'Tech Corp', duration: '2020-Present', desc: 'Led development of microservices architecture serving 1M+ users, improving system performance by 40% and reducing infrastructure costs by 25%.' },
+                        { role: 'Full Stack Developer', org: 'StartupXYZ', duration: '2018-2020', desc: 'Built and deployed 3 major web applications using React and Node.js, resulting in 60% increase in user engagement and 35% reduction in page load times.' }
+                    ]
+                },
+                healthcare: {
+                    summary: 'Compassionate registered nurse with 7+ years of experience in critical care and emergency medicine. Dedicated to providing exceptional patient care and improving clinical outcomes through evidence-based practice.',
+                    skills: 'Patient Assessment, IV Therapy, Medication Administration, Electronic Health Records, CPR/BLS, Critical Care, Patient Education, Clinical Documentation',
+                    experience: [
+                        { role: 'Registered Nurse - ICU', org: 'City Medical Center', duration: '2019-Present', desc: 'Managed care for 8-10 critically ill patients per shift, implementing evidence-based protocols that reduced infection rates by 30% and improved patient outcomes.' },
+                        { role: 'Emergency Room Nurse', org: 'Regional Hospital', duration: '2017-2019', desc: 'Provided triage and emergency care for 50+ patients daily, collaborating with multidisciplinary teams to deliver timely and effective treatment.' }
+                    ]
+                },
+                finance: {
+                    summary: 'Detail-oriented financial analyst with 6+ years of experience in investment analysis, risk management, and financial modeling. Proven track record of delivering data-driven insights that drive strategic decision-making.',
+                    skills: 'Financial Modeling, Risk Assessment, Portfolio Management, Excel, Bloomberg Terminal, SQL, Python, Regulatory Compliance, Due Diligence',
+                    experience: [
+                        { role: 'Senior Financial Analyst', org: 'Investment Firm', duration: '2019-Present', desc: 'Analyzed investment opportunities for $50M portfolio, achieving 15% annual returns and identifying cost-saving opportunities worth $2M annually.' },
+                        { role: 'Financial Analyst', org: 'Bank Corp', duration: '2017-2019', desc: 'Developed financial models for M&A transactions valued at $100M+, supporting due diligence processes and integration planning.' }
+                    ]
+                }
+            };
+            
+            const template = templates[industry];
+            if (!template) {
+                showToast('Template not available yet', 'error');
+                return;
+            }
+            
+            // Apply template to current state
+            state.personal.summary = template.summary;
+            state.personal.skills = template.skills;
+            state.experience = template.experience;
+            
+            populateFormFromState();
+            updatePreview();
+            saveState();
+            
+            showToast(`${industry.charAt(0).toUpperCase() + industry.slice(1)} template applied successfully!`, 'success');
+            
+            // Close modal
+            document.querySelector('.fixed').remove();
+        }
+        function openSpellCheck() {
+            console.log('Spell Check clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-spell-check text-yellow-500"></i> Spell Check & Grammar
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <button onclick="runSpellCheck()" class="px-4 py-2 bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-search"></i> Run Spell Check
+                            </button>
+                            <button onclick="runGrammarCheck()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-book"></i> Run Grammar Check
+                            </button>
+                        </div>
+                        
+                        <div id="spell-check-results" class="bg-white/10 backdrop-blur-sm rounded-lg p-4 min-h-[200px] text-white text-sm">
+                            <p class="text-white/60">Click "Run Spell Check" or "Run Grammar Check" to analyze your resume content.</p>
+                        </div>
+                        
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <h4 class="text-white font-semibold mb-2">Quick Tips:</h4>
+                            <ul class="text-white/70 text-xs space-y-1">
+                                <li>• Check for consistent verb tense throughout your experience descriptions</li>
+                                <li>• Ensure proper capitalization of job titles and company names</li>
+                                <li>• Use action verbs to start bullet points (Managed, Developed, Created, etc.)</li>
+                                <li>• Avoid passive voice and use active voice instead</li>
+                                <li>• Check for proper punctuation and spacing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        const commonMistakes = {
+            'acheived':'achieved','accomodate':'accommodate','accomplishment':'accomplishment','occured':'occurred',
+            'experiance':'experience','recieve':'receive','seperate':'separate','definately':'definitely',
+            'environement':'environment','managment':'management','responsability':'responsibility','succesful':'successful',
+            'teh':'the','adress':'address','developement':'development','perfer':'prefer','refered':'referred'
+        };
+
+        function runSpellCheck() {
+            const results = document.getElementById('spell-check-results');
+            if (!results) return;
+            const issues = [];
+            const parts = [
+                state.personal.summary || '',
+                state.personal.skills || '',
+                ...(state.experience || []).map(e => e.desc || ''),
+                ...(state.education || []).map(e => (e.degree || '') + ' ' + (e.school || '')),
+                ...(state.certifications || []).map(c => (c.title || '') + ' ' + (c.subtitle || ''))
+            ];
+            const allText = parts.filter(Boolean).join(' ').replace(/<[^>]+>/g,' ').toLowerCase();
+
+            Object.entries(commonMistakes).forEach(([wrong, correct]) => {
+                if (allText.includes(wrong)) {
+                    issues.push({
+                        type: 'spelling',
+                        issue: `Possible spelling error: "${wrong}" should be "${correct}"`,
+                        severity: 'medium'
+                    });
+                }
+            });
+
+            // Check for common resume-specific issues
+            if (/\b(i|me|my|myself)\b/i.test(allText)) {
+                issues.push({
+                    type: 'style',
+                    issue: 'Consider using more professional language instead of first-person pronouns',
+                    severity: 'low'
+                });
+            }
+            if (/\b(resume|cv|curriculum vitae)\b/i.test(allText)) {
+                issues.push({
+                    type: 'content',
+                    issue: 'Avoid mentioning "resume" in your resume content',
+                    severity: 'medium'
+                });
+            }
+            
+            // Display results
+            if (issues.length === 0) {
+                results.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-check-circle text-4xl text-green-400 mb-4"></i>
+                        <p class="text-green-400 font-semibold">No spelling issues found!</p>
+                        <p class="text-white/60 text-sm mt-2">Your resume looks good from a spelling perspective.</p>
+                    </div>
+                `;
+            } else {
+                results.innerHTML = `
+                    <div class="space-y-3">
+                        <p class="text-yellow-400 font-semibold">Found ${issues.length} potential issues:</p>
+                        ${issues.map(issue => `
+                            <div class="bg-white/5 rounded p-3 border-l-4 ${
+                                issue.severity === 'high' ? 'border-red-400' :
+                                issue.severity === 'medium' ? 'border-yellow-400' :
+                                'border-blue-400'
+                            }">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-${
+                                        issue.type === 'spelling' ? 'spell-check' :
+                                        issue.type === 'grammar' ? 'book' :
+                                        'info-circle'
+                                    } text-${
+                                        issue.severity === 'high' ? 'red-400' :
+                                        issue.severity === 'medium' ? 'yellow-400' :
+                                        'blue-400'
+                                    } mt-1"></i>
+                                    <div>
+                                        <p class="text-xs">${issue.issue}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        function runGrammarCheck() {
+            const results = document.getElementById('spell-check-results');
+            if (!results) return;
+            const issues = [];
+            const experienceTexts = (state.experience || []).map(e => e.desc || '').join(' ').replace(/<[^>]+>/g,' ');
+            
+            // Check for common grammar issues
+            if (experienceTexts.match(/\b(I|we|my|our)\b/gi)) {
+                issues.push({
+                    type: 'grammar',
+                    issue: 'Remove first-person pronouns (I, we, my, our) from resume descriptions',
+                    severity: 'high',
+                    suggestion: 'Start sentences with action verbs instead'
+                });
+            }
+            
+            // Check for passive voice indicators
+            if (experienceTexts.match(/\b(was|were|been|being)\s+\w+ed\b/gi)) {
+                issues.push({
+                    type: 'style',
+                    issue: 'Possible passive voice detected. Use active voice for stronger impact.',
+                    severity: 'medium',
+                    suggestion: 'Replace passive constructions with active verbs'
+                });
+            }
+            
+            // Check for consistent tense
+            const pastTense = experienceTexts.match(/\b\w+ed\b/g) || [];
+            const presentTense = experienceTexts.match(/\b\w+s\b/g) || [];
+            
+            if (pastTense.length > 0 && presentTense.length > 0) {
+                issues.push({
+                    type: 'consistency',
+                    issue: 'Mixed verb tenses detected. Use consistent past tense for experience descriptions.',
+                    severity: 'medium',
+                    suggestion: 'Use past tense for completed roles, present tense for current roles'
+                });
+            }
+            
+            // Check for bullet point consistency
+            const bulletPoints = (state.experience || []).map(e => (e.desc || '').split('.')).flat();
+            const inconsistentBullets = bulletPoints.filter(bp => 
+                bp.trim() && !bp.match(/^[A-Z]/)
+            );
+            
+            if (inconsistentBullets.length > 0) {
+                issues.push({
+                    type: 'formatting',
+                    issue: 'Some bullet points may not start with capital letters',
+                    severity: 'low',
+                    suggestion: 'Ensure all bullet points start with capital letters'
+                });
+            }
+            
+            // Display results
+            if (issues.length === 0) {
+                results.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-check-circle text-4xl text-green-400 mb-4"></i>
+                        <p class="text-green-400 font-semibold">No grammar issues found!</p>
+                        <p class="text-white/60 text-sm mt-2">Your resume has good grammar and style.</p>
+                    </div>
+                `;
+            } else {
+                results.innerHTML = `
+                    <div class="space-y-3">
+                        <p class="text-blue-400 font-semibold">Found ${issues.length} grammar/style suggestions:</p>
+                        ${issues.map(issue => `
+                            <div class="bg-white/5 rounded p-3 border-l-4 ${
+                                issue.severity === 'high' ? 'border-red-400' :
+                                issue.severity === 'medium' ? 'border-yellow-400' :
+                                'border-blue-400'
+                            }">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-${
+                                        issue.type === 'grammar' ? 'book' :
+                                        issue.type === 'style' ? 'palette' :
+                                        issue.type === 'consistency' ? 'sync' :
+                                        'align-left'
+                                    } text-${
+                                        issue.severity === 'high' ? 'red-400' :
+                                        issue.severity === 'medium' ? 'yellow-400' :
+                                        'blue-400'
+                                    } mt-1"></i>
+                                    <div class="flex-1">
+                                        <p class="text-xs mb-1">${issue.issue}</p>
+                                        ${issue.suggestion ? `<p class="text-xs text-white/60">💡 ${issue.suggestion}</p>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        function openAutoSaveVersions() {
+            console.log('Auto Save Versions clicked');
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.innerHTML = `
+                <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                            <i class="fa-solid fa-clock-rotate-left text-purple-500"></i> Auto-Save Versions
+                        </h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-white/70 hover:text-white transition-colors">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-white font-semibold">Auto-Save Status</h4>
+                                <p class="text-white/60 text-sm">Automatically saves your resume every 30 seconds</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div id="auto-save-indicator" class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                                <span id="auto-save-status" class="text-green-400 text-sm">Active</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <h4 class="text-white font-semibold mb-3">Recent Versions</h4>
+                            <div id="versions-list" class="space-y-2 max-h-64 overflow-y-auto">
+                                <p class="text-white/60 text-sm">Loading versions...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button onclick="createManualSave()" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-save"></i> Create Manual Save
+                            </button>
+                            <button onclick="clearOldVersions()" class="px-4 py-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 rounded-lg text-white font-semibold transition-all">
+                                <i class="fa-solid fa-trash"></i> Clear Old Versions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Load and display versions
+            loadVersions();
+        }
+        
+        // Auto-save functionality
+        let autoSaveInterval;
+        
+        function getVersions() {
+            try { return JSON.parse(localStorage.getItem('resume_versions') || '[]'); } catch(e) { return []; }
+        }
+        function loadVersions() {
+            const versions = getVersions();
+            const el = document.getElementById('versions-list');
+            if (!el) return;
+            if (versions.length === 0) { el.innerHTML = '<p class="text-white/60 text-sm">No saved versions yet.</p>'; return; }
+            el.innerHTML = versions.slice(0, 10).map((v,i) => `
+                <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                    <span class="text-white text-sm">${v.name || 'Version ' + (i+1)}</span>
+                    <div class="flex gap-2">
+                        <button onclick="restoreVersion(${i})" class="text-emerald-400 text-xs hover:underline">Restore</button>
+                        <button onclick="deleteVersion(${i})" class="text-red-400 text-xs hover:underline">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function restoreVersion(idx) {
+            const versions = getVersions();
+            const v = versions[idx];
+            if (v && v.data) { Object.assign(appData, v.data); switchProfile(appData.activeProfileId); populateFormFromState(); updateProfileDropdown(); saveState(); showToast('Version restored', 'success'); document.querySelector('.fixed')?.remove(); }
+        }
+        function deleteVersion(idx) {
+            const versions = getVersions();
+            versions.splice(idx, 1);
+            localStorage.setItem('resume_versions', JSON.stringify(versions));
+            loadVersions();
+            showToast('Version deleted', 'success');
+        }
+        function createManualSave() {
+            const versions = getVersions();
+            versions.unshift({ name: 'Manual - ' + new Date().toLocaleString(), timestamp: new Date().toISOString(), data: JSON.parse(JSON.stringify(appData)) });
+            if (versions.length > 20) versions.splice(20);
+            localStorage.setItem('resume_versions', JSON.stringify(versions));
+            loadVersions();
+            showToast('Manual save created', 'success');
+        }
+        function clearOldVersions() {
+            const versions = getVersions();
+            if (versions.length <= 1) { showToast('Keeping at least 1 version', 'error'); return; }
+            const keep = versions.slice(0, 3);
+            localStorage.setItem('resume_versions', JSON.stringify(keep));
+            loadVersions();
+            showToast('Old versions cleared', 'success');
+        }
+        
+        function startAutoSave() {
+            if (autoSaveInterval) clearInterval(autoSaveInterval);
+            
+            autoSaveInterval = setInterval(() => {
+                const timestamp = new Date().toISOString();
+                const versions = getVersions();
+                versions.unshift({
+                    name: `Auto-save - ${new Date().toLocaleTimeString()}`,
+                    timestamp: timestamp,
+                    data: JSON.parse(JSON.stringify(appData))
+                });
+                if (versions.length > 10) versions.splice(10);
+                localStorage.setItem('resume_versions', JSON.stringify(versions));
+            }, 30000);
+        }
+        
+        // Start auto-save when page loads
+        startAutoSave();
+    </script>
+    
+    <!-- Footer -->
+    <footer class="h-8 shrink-0 bg-[#1a1f2e] border-t border-slate-700 flex items-center justify-center text-[9px] text-white uppercase tracking-[0.2em] font-bold">
+        © 2024 Ashish Kumar Sankhua. All rights reserved. <a href="LICENSE" download class="text-cyan-400 hover:text-cyan-300 transition-colors">MIT License</a>
+    </footer>
+</body>
+</html>
