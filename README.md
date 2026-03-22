@@ -13,89 +13,17 @@ Built with ❤️ using vanilla HTML, CSS, and JavaScript - no frameworks, no de
 
 ## ✨ Key Features
 
-### 🎨 **Core Resume Building**
-- **Multiple Layouts**: Single Column, Two-Column, Sidebar-Left, Sidebar-Right, Minimalist
-- **Real-time Preview**: Live preview updates as you type
-- **Drag & Drop**: Reorder sections with intuitive drag and drop
-- **Custom Sections**: Add unlimited custom resume sections
-- **Professional Themes**: 17 professional color themes
-
-### 📝 **Resume Sections**
-- **Personal Information**: Name, title, contact details, photo
-- **Professional Summary**: Career overview and objectives
-- **Core Skills**: Skills with visual pill display
-- **Work Experience**: Detailed work history with descriptions
-- **Education**: Academic background and qualifications
-- **Certifications**: Professional certifications and achievements
-- **Custom Sections**: Unlimited custom sections
-
-### 🛠️ **Advanced Tools**
-- **Cover Letter Builder**: Generate matching cover letters
-- **Job Description Matcher**: Match resume to job descriptions
-- **Keyword Density Checker**: Optimize for ATS systems
-- **Readability Analyzer**: Improve resume readability
-- **ATS Compatibility Checker**: Ensure ATS friendliness
-- **QR Code Generator**: Create QR codes for resumes
-- **Email Templates**: Professional email templates
-- **Skills Gap Analysis**: Identify skill gaps
-- **Resume Strength Calculator**: Score resume quality
-- **Comparison Tool**: Compare multiple resumes
-- **Achievement Quantifier**: Quantify resume achievements
-
-### 💾 **Data Management**
-- **Auto-save**: Automatic saving every 30 seconds
-- **Version Control**: Maintain 10 previous versions
-- **Multiple Profiles**: Create and manage multiple resumes
-- **Export Options**: PDF, HTML, TXT downloads
-- **Backup/Restore**: JSON-based backup system
-
-### 🎵 **User Experience**
-- **Background Music**: Ambient music while working
-- **Smooth Animations**: Professional transitions and effects
-- **Responsive Design**: Works on all screen sizes
-- **Print Optimization**: Optimized for PDF generation
-
-### 📋 **Resume Layouts**
-
-#### **Single Column**
-- Classic traditional resume format
-- Clean, professional appearance
-- ATS-friendly layout
-
-#### **Two-Column Modern**
-- 50/50 split layout
-- Modern, eye-catching design
-- Great for creative roles
-
-#### **Sidebar Layouts (Left/Right)**
-- Professional sidebar design
-- Contact info in sidebar
-- Main content in center
-
-#### **Minimalist Executive**
-- Clean, minimal design
-- Executive-level presentation
-- Focus on content
-
-### 🎯 **Drag & Drop System**
-- **Visual Feedback**: Animated drop zones with shimmer effects
-- **Smooth Transitions**: Professional animations and scaling
-- **Smart Insertion**: Above/below positioning with visual indicators
-- **Touch Support**: Works on mobile devices
-- **Enhanced UX**: Section rotation, glowing borders, and drop animations
-
-### 🎨 **Theme System**
-- **17 Professional Themes**: Ocean Blue, Emerald Forest, Navy Professional, etc.
-- **CSS Custom Properties**: Dynamic theming with CSS variables
-- **Instant Switching**: Real-time theme changes
-- **Print Optimization**: Themes work in PDF generation
-
-### 🎵 **Audio System**
-- **Background Music**: Ambient working music for enhanced focus
-- **Toggle Control**: User-controlled playback with visual feedback
-- **Volume Control**: Soft aesthetic volume (30%)
-- **Fallback Support**: Multiple audio sources with error handling
-- **Visual Feedback**: Button animations and status indicators
+| Category | Features |
+|----------|----------|
+| **🎨 Core Resume Building** | **Multiple Layouts:** Single Column, Two-Column, Sidebar-Left, Sidebar-Right, Minimalist<br>**Real-time Preview:** Live preview updates as you type<br>**Drag & Drop:** Reorder sections with intuitive drag and drop<br>**Custom Sections:** Add unlimited custom resume sections<br>**Professional Themes:** 17 professional color themes |
+| **📝 Resume Sections** | **Personal Information:** Name, title, contact details, photo<br>**Professional Summary:** Career overview and objectives<br>**Core Skills:** Skills with visual pill display<br>**Work Experience:** Detailed work history with descriptions<br>**Education:** Academic background and qualifications<br>**Certifications:** Professional certifications and achievements<br>**Custom Sections:** Unlimited custom sections |
+| **🛠️ Advanced Tools** | **Cover Letter Builder:** Generate matching cover letters<br>**Job Description Matcher:** Match resume to job descriptions<br>**Keyword Density Checker:** Optimize for ATS systems<br>**Readability Analyzer:** Improve resume readability<br>**ATS Compatibility Checker:** Ensure ATS friendliness<br>**QR Code Generator:** Create QR codes for resumes<br>**Email Templates:** Professional email templates<br>**Skills Gap Analysis:** Identify skill gaps<br>**Resume Strength Calculator:** Score resume quality<br>**Comparison Tool:** Compare multiple resumes<br>**Achievement Quantifier:** Quantify resume achievements |
+| **💾 Data Management** | **Auto-save:** Automatic saving every 30 seconds<br>**Version Control:** Maintain 10 previous versions<br>**Multiple Profiles:** Create and manage multiple resumes<br>**Export Options:** PDF, HTML, TXT downloads<br>**Backup/Restore:** JSON-based backup system |
+| **🎵 User Experience** | **Background Music:** Ambient music while working<br>**Smooth Animations:** Professional transitions and effects<br>**Responsive Design:** Works on all screen sizes<br>**Print Optimization:** Optimized for PDF generation |
+| **📋 Resume Layouts** | **Single Column:** Classic traditional format, ATS-friendly<br>**Two-Column Modern:** 50/50 split, eye-catching design<br>**Sidebar (L/R):** Professional sidebar design<br>**Minimalist Executive:** Clean, executive-level presentation |
+| **🎯 Drag & Drop System** | **Visual Feedback:** Animated drop zones with shimmer effects<br>**Smooth Transitions:** Professional animations and scaling<br>**Smart Insertion:** Above/below positioning with visual indicators<br>**Touch Support:** Works on mobile devices<br>**Enhanced UX:** Section rotation, glowing borders, drop animations |
+| **🎨 Theme System** | **17 Professional Themes:** Ocean Blue, Emerald Forest, Navy Professional, etc.<br>**CSS Custom Properties:** Dynamic theming with CSS variables<br>**Instant Switching:** Real-time theme changes<br>**Print Optimization:** Themes work in PDF generation |
+| **🎵 Audio System** | **Background Music:** Ambient working music for enhanced focus<br>**Toggle Control:** User-controlled playback with visual feedback<br>**Volume Control:** Soft aesthetic volume (30%)<br>**Fallback Support:** Multiple audio sources with error handling<br>**Visual Feedback:** Button animations and status indicators |
 
 ## 🚀 Quick Start
 
