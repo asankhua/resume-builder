@@ -1635,16 +1635,22 @@
                 return;
             }
             
+            // Remove any existing new resume modals first
+            const existingModal = document.querySelector('.new-resume-modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
             // Create modal for resume name input
             const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
+            modal.className = 'new-resume-modal fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center';
             modal.innerHTML = `
                 <div class="bg-gradient-to-br from-[#11141b] to-[#1e293b] border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-white flex items-center gap-3">
                             <i class="fa-solid fa-file-plus text-green-500"></i> Create New Resume
                         </h3>
-                        <button onclick="this.closest('.fixed').remove(); isCreatingResume = false;" class="text-white/70 hover:text-white transition-colors">
+                        <button onclick="closeNewResumeModal()" class="text-white/70 hover:text-white transition-colors">
                             <i class="fa-solid fa-times text-xl"></i>
                         </button>
                     </div>
@@ -1657,7 +1663,7 @@
                         </div>
                         
                         <div class="flex gap-3 pt-2">
-                            <button onclick="this.closest('.fixed').remove(); isCreatingResume = false;" class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors">
+                            <button onclick="closeNewResumeModal()" class="flex-1 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors">
                                 Cancel
                             </button>
                             <button id="create-resume-btn" onclick="confirmNewResume()" class="flex-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-lg font-semibold transition-all">
@@ -1673,6 +1679,14 @@
             setTimeout(() => {
                 document.getElementById('new-resume-name').focus();
             }, 100);
+        }
+        
+        function closeNewResumeModal() {
+            const modal = document.querySelector('.new-resume-modal');
+            if (modal) {
+                modal.remove();
+            }
+            isCreatingResume = false;
         }
         
         function confirmNewResume() {
@@ -1700,7 +1714,7 @@
                 console.log('Resume name:', resumeName);
                 
                 // Find and close modal immediately
-                const modal = document.querySelector('.fixed');
+                const modal = document.querySelector('.new-resume-modal');
                 if (modal) {
                     console.log('Closing modal immediately');
                     modal.remove();
