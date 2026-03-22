@@ -7,6 +7,9 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
 A sophisticated, feature-rich resume builder application that allows users to create professional resumes with multiple layouts, real-time preview, and advanced tools.
+The Resume Builder is a comprehensive, professional tool for creating stunning resumes. With its modern architecture, extensive feature set, and focus on user experience, it provides everything needed to create impressive resumes that stand out.
+
+Built with ❤️ using vanilla HTML, CSS, and JavaScript - no frameworks, no dependencies, just pure web technology.
 
 ## ✨ Key Features
 
@@ -52,6 +55,48 @@ A sophisticated, feature-rich resume builder application that allows users to cr
 - **Responsive Design**: Works on all screen sizes
 - **Print Optimization**: Optimized for PDF generation
 
+### 📋 **Resume Layouts**
+
+#### **Single Column**
+- Classic traditional resume format
+- Clean, professional appearance
+- ATS-friendly layout
+
+#### **Two-Column Modern**
+- 50/50 split layout
+- Modern, eye-catching design
+- Great for creative roles
+
+#### **Sidebar Layouts (Left/Right)**
+- Professional sidebar design
+- Contact info in sidebar
+- Main content in center
+
+#### **Minimalist Executive**
+- Clean, minimal design
+- Executive-level presentation
+- Focus on content
+
+### 🎯 **Drag & Drop System**
+- **Visual Feedback**: Animated drop zones with shimmer effects
+- **Smooth Transitions**: Professional animations and scaling
+- **Smart Insertion**: Above/below positioning with visual indicators
+- **Touch Support**: Works on mobile devices
+- **Enhanced UX**: Section rotation, glowing borders, and drop animations
+
+### 🎨 **Theme System**
+- **17 Professional Themes**: Ocean Blue, Emerald Forest, Navy Professional, etc.
+- **CSS Custom Properties**: Dynamic theming with CSS variables
+- **Instant Switching**: Real-time theme changes
+- **Print Optimization**: Themes work in PDF generation
+
+### 🎵 **Audio System**
+- **Background Music**: Ambient working music for enhanced focus
+- **Toggle Control**: User-controlled playback with visual feedback
+- **Volume Control**: Soft aesthetic volume (30%)
+- **Fallback Support**: Multiple audio sources with error handling
+- **Visual Feedback**: Button animations and status indicators
+
 ## 🚀 Quick Start
 
 ### 🌐 **Live Demo**
@@ -60,27 +105,6 @@ Visit the live application: [Resume Builder Demo](https://asankhua.github.io/res
 ### 📋 **Prerequisites**
 - Modern web browser (Chrome 80+, Firefox 75+, Safari 13+, Edge 80+)
 - No additional software required
-
-### 🛠️ **Installation**
-
-#### **Option 1: Clone and Run**
-```bash
-# Clone the repository
-git clone https://github.com/asankhua/resume-builder.git
-
-# Navigate to the project directory
-cd resume-builder
-
-# Open index.html in your browser
-# Or use a local server
-python -m http.server 8000
-# Then visit http://localhost:8000
-```
-
-#### **Option 2: Direct Download**
-1. Download the ZIP file from GitHub
-2. Extract to your desired location
-3. Open `index.html` in your browser
 
 ## 🏗️ Technical Stack
 
@@ -109,161 +133,6 @@ python -m http.server 8000
 - **Hot Reload**: Browser-based development
 - **Console Debugging**: Comprehensive logging
 
-## 📁 Project Structure
-
-```
-resume-builder/
-├── index.html              # Main application file (2500+ lines)
-├── README.md               # Project documentation
-├── architecture.md         # Technical architecture details
-└── assets/                 # Static assets (if added)
-```
-
-### **File Breakdown**
-- **`index.html`**: Complete application (HTML, CSS, JavaScript)
-- **`README.md`**: Project documentation and setup guide
-- **`architecture.md`**: Detailed technical architecture
-
-## 🎨 Features Deep Dive
-
-### **Resume Layouts**
-
-#### **Single Column**
-- Classic traditional resume format
-- Clean, professional appearance
-- ATS-friendly layout
-
-#### **Two-Column Modern**
-- 50/50 split layout
-- Modern, eye-catching design
-- Great for creative roles
-
-#### **Sidebar Layouts (Left/Right)**
-- Professional sidebar design
-- Contact info in sidebar
-- Main content in center
-
-#### **Minimalist Executive**
-- Clean, minimal design
-- Executive-level presentation
-- Focus on content
-
-### **Drag & Drop System**
-- **Visual Feedback**: Animated drop zones
-- **Smooth Transitions**: Professional animations
-- **Smart Insertion**: Above/below positioning
-- **Touch Support**: Works on mobile devices
-
-### **Theme System**
-- **17 Professional Themes**: Ocean Blue, Emerald Forest, Navy Professional, etc.
-- **CSS Custom Properties**: Dynamic theming
-- **Instant Switching**: Real-time theme changes
-- **Print Optimization**: Themes work in PDF
-
-### **Audio System**
-- **Background Music**: Ambient working music
-- **Toggle Control**: User-controlled playback
-- **Volume Control**: Soft aesthetic volume (30%)
-- **Fallback Support**: Multiple audio sources
-
-## 🔧 Configuration
-
-### **Resume Settings**
-- **Layout**: Choose from 5 different layouts
-- **Theme**: Select from 17 professional themes
-- **Font**: 13 font options (Merriweather, Inter, etc.)
-- **Font Size**: Adjustable from 11-17pt
-- **Line Spacing**: 1.2-2.2 spacing options
-
-### **Export Options**
-- **PDF**: High-quality PDF generation
-- **HTML**: Styled HTML export
-- **TXT**: Plain text format
-- **JSON**: Complete data backup
-
-## 🌐 Browser Compatibility
-
-### **Supported Browsers**
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Safari 13+
-- ✅ Edge 80+
-
-### **Required Features**
-- ES6+ JavaScript support
-- CSS Grid and Flexbox
-- LocalStorage API
-- File API (for uploads/downloads)
-
-### **Mobile Support**
-- ✅ Responsive design
-- ✅ Touch interactions
-- ✅ Mobile preview
-- ⚠️ Limited on small screens
-
-## 📊 Performance
-
-### **Optimization Features**
-- **Lazy Loading**: Components loaded on demand
-- **Debounced Inputs**: Optimized typing experience
-- **Efficient DOM**: Minimal DOM manipulation
-- **Hardware Acceleration**: GPU-accelerated animations
-
-### **Performance Metrics**
-- **Load Time**: < 2 seconds
-- **Bundle Size**: < 500KB
-- **Memory Usage**: < 50MB
-- **Interaction Response**: < 100ms
-
-## 🔒 Security & Privacy
-
-### **Data Protection**
-- **Local Storage**: All data stored locally
-- **No Server Transmission**: Data never leaves your browser
-- **No Analytics**: No tracking or analytics
-- **Optional Features**: Audio and external resources are opt-in
-
-### **Security Measures**
-- **Input Validation**: Client-side validation
-- **XSS Prevention**: Safe HTML generation
-- **Secure File Handling**: Safe upload/download
-- **HTTPS Ready**: Secure deployment
-
-## 🚀 Deployment
-
-### **GitHub Pages**
-```bash
-# Deploy to GitHub Pages
-git push origin main
-# Automatic deployment via GitHub Pages
-```
-
-### **Manual Deployment**
-1. Build the project (no build step required)
-2. Upload files to your web server
-3. Ensure HTTPS is enabled
-4. Test all functionality
-
-### **Environment Variables**
-No environment variables required - completely self-contained.
-
-## 🧪 Testing
-
-### **Manual Testing Checklist**
-- [ ] All layouts render correctly
-- [ ] Drag and drop functionality
-- [ ] Form inputs and validation
-- [ ] Export functionality (PDF, HTML, TXT)
-- [ ] Audio playback
-- [ ] Responsive design
-- [ ] Print optimization
-- [ ] Browser compatibility
-
-### **Debug Tools**
-- **Browser Console**: Comprehensive logging
-- **Network Tab**: Monitor external requests
-- **Performance Tab**: Analyze performance
-- **Elements Panel**: Debug DOM and CSS
 
 ## 📄 License
 
