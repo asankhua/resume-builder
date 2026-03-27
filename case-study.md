@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-**[Product Name]** is a client-side resume builder application that enables job seekers to create professional, ATS-optimized resumes without backend dependencies. Built entirely with vanilla HTML, CSS, and JavaScript, this solution demonstrates [Author Name]'s expertise in frontend architecture, user experience design, and product thinking.
+**Resume Builder** is a client-side resume builder application that enables job seekers to create professional, ATS-optimized resumes without backend dependencies. Built entirely with vanilla HTML, CSS, and JavaScript, this solution demonstrates [Author Name]'s expertise in frontend architecture, user experience design, and product thinking.
 
 **Key Highlights:**
 - **100% Frontend Architecture:** Zero backend, zero dependencies, zero hosting costs
