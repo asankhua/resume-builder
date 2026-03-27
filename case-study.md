@@ -1,10 +1,8 @@
-# Resume Builder - Product Case Study
+# ProResume Builder
+*Professional, ATS-optimized resumes in minutes—100% private, zero cost, no backend required.*
 
-**Product Name:** ProResume Builder  
-**Tagline:** Professional, ATS-optimized resumes in minutes—100% private, zero cost, no backend required.  
 **Author:** Ashish Kumar Sankhua | Product Manager  
-**Date:** March 27, 2026 
-**Status:** Production Ready
+**Date:** March 2026 | **Status:** Production Ready
 
 
 ---
