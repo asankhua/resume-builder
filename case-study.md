@@ -1,10 +1,11 @@
 # Resume Builder - Product Case Study
 
-**Product Name:** [Product Name]  
-**Tagline:** [Brief Value Proposition - e.g., "Professional resumes in minutes, not hours"]  
-**Author:** [Your Name]  
-**Date:** [Month Year]  
-**Status:** [Draft / In Review / Complete / Live]  
+**Product Name:** ProResume Builder  
+**Tagline:** Professional, ATS-optimized resumes in minutes—100% private, zero cost, no backend required.  
+**Author:** Ashish Kumar Sankhua | Product Manager  
+**Date:** March 27, 2026 
+**Status:** Production Ready
+
 
 ---
 
