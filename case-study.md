@@ -1,4 +1,4 @@
-# ProResume Builder
+**ProResume Builder**  
 *Professional, ATS-optimized resumes in minutes—100% private, zero cost, no backend required.*
 
 **Author:** Ashish Kumar Sankhua | Product Manager  
