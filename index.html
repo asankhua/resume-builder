@@ -1256,27 +1256,43 @@
         }
         function downloadAsPDF() { downloadPDF('a4'); }
         function downloadAsPDFLetter() { downloadPDF('letter'); }
-        function downloadPDF(fmt) {
+        async function downloadPDF(fmt) {
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
+            const h2c = window.html2canvas;
+            const JsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+            if (!h2c || !JsPDFCtor) { showToast('PDF library not loaded', 'error'); return; }
             const shadow = el.style.boxShadow; el.style.boxShadow = 'none';
             const prevMargin = el.style.margin; el.style.margin = '0';
-            const prevPadding = el.style.padding; el.style.padding = '12mm';
-            const filename = state.filename || state.name || 'Resume';
-            const opt = {
-                margin: 6,
-                filename: `${filename}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
-                jsPDF: { unit: 'mm', format: fmt, orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-            html2pdf().set(opt).from(el).save().then(() => {
+            try {
+                const canvas = await h2c(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                const pdf = new JsPDFCtor({ unit: 'mm', format: fmt, orientation: 'portrait' });
+                const pageW = pdf.internal.pageSize.getWidth();
+                const pageH = pdf.internal.pageSize.getHeight();
+                const margin = 8;
+                const usableW = pageW - margin * 2;
+                const usableH = pageH - margin * 2;
+                const imgH = (canvas.height * usableW) / canvas.width;
+                let heightLeft = imgH;
+                let position = margin;
+                pdf.addImage(imgData, 'JPEG', margin, position, usableW, imgH);
+                heightLeft -= usableH;
+                while (heightLeft > 0) {
+                    position = margin - (imgH - heightLeft);
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', margin, position, usableW, imgH);
+                    heightLeft -= usableH;
+                }
+                const filename = state.filename || state.name || 'Resume';
+                pdf.save(`${filename}.pdf`);
+                showToast('PDF downloaded!', 'success');
+            } catch (e) {
+                showToast('Export failed', 'error');
+            } finally {
                 el.style.boxShadow = shadow;
                 el.style.margin = prevMargin;
-                el.style.padding = prevPadding;
-                showToast('PDF downloaded!', 'success');
-            }).catch(() => { el.style.boxShadow = shadow; el.style.margin = prevMargin; el.style.padding = prevPadding; });
+            }
         }
         function downloadAsHTML() {
             const el = document.getElementById('resume-preview');
