@@ -1260,21 +1260,23 @@
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
             const shadow = el.style.boxShadow; el.style.boxShadow = 'none';
-            const prevPadding = el.style.padding;
-            el.style.padding = '10mm';
+            const prevMargin = el.style.margin; el.style.margin = '0';
+            const prevPadding = el.style.padding; el.style.padding = '12mm';
             const filename = state.filename || state.name || 'Resume';
             const opt = {
-                margin: [8, 8, 8, 8],
+                margin: 6,
                 filename: `${filename}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: el.scrollWidth },
-                jsPDF: { unit: 'mm', format: fmt, orientation: 'portrait' }
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+                jsPDF: { unit: 'mm', format: fmt, orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
             html2pdf().set(opt).from(el).save().then(() => {
                 el.style.boxShadow = shadow;
+                el.style.margin = prevMargin;
                 el.style.padding = prevPadding;
                 showToast('PDF downloaded!', 'success');
-            }).catch(() => { el.style.boxShadow = shadow; el.style.padding = prevPadding; });
+            }).catch(() => { el.style.boxShadow = shadow; el.style.margin = prevMargin; el.style.padding = prevPadding; });
         }
         function downloadAsHTML() {
             const el = document.getElementById('resume-preview');
