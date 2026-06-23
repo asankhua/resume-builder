@@ -1260,8 +1260,21 @@
             const el = document.getElementById('resume-preview');
             if (!el) { showToast('Nothing to export', 'error'); return; }
             const shadow = el.style.boxShadow; el.style.boxShadow = 'none';
+            const prevPadding = el.style.padding;
+            el.style.padding = '10mm';
             const filename = state.filename || state.name || 'Resume';
-            html2pdf().set({ margin:0, filename:`${filename}.pdf`, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true}, jsPDF:{unit:'mm',format:fmt,orientation:'portrait'} }).from(el).save().then(() => { el.style.boxShadow = shadow; showToast('PDF downloaded!', 'success'); });
+            const opt = {
+                margin: [8, 8, 8, 8],
+                filename: `${filename}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: el.scrollWidth },
+                jsPDF: { unit: 'mm', format: fmt, orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(el).save().then(() => {
+                el.style.boxShadow = shadow;
+                el.style.padding = prevPadding;
+                showToast('PDF downloaded!', 'success');
+            }).catch(() => { el.style.boxShadow = shadow; el.style.padding = prevPadding; });
         }
         function downloadAsHTML() {
             const el = document.getElementById('resume-preview');
